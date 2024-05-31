@@ -57,8 +57,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Particle from "../Particle";
-import pdf1 from "../../Assets/Abhishek_Sagar_Sanda_FullStackResume.pdf";
-import pdf2 from "../../Assets/Abhishek_Sagar_Sanda_AI_MLResume.pdf";
+import pdf1 from "../../Assets/Abhishek_Sagar_Sanda_FullStack_Resume.pdf";
+import pdf2 from "../../Assets/Abhishek_Sagar_Sanda_AI_ML_Resume.pdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
