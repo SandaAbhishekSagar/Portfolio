@@ -1,7 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { FaC, FaPython, FaDatabase, FaAngular } from "react-icons/fa6";
-import { BsHash } from "react-icons/bs";
 import {
   DiJavascript1,
   DiReact,
