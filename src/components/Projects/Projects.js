@@ -9,6 +9,7 @@ import food from "../../Assets/Projects/food.png";
 import dispatch from "../../Assets/Projects/DispatchGenius.png";
 import eat from "../../Assets/Projects/Eatwise.png";
 import weapon from "../../Assets/Projects/Weapondetection.png";
+import linguavision from "../../Assets/Projects/Output_1.png";
 
 function Projects() {
   return (
@@ -22,6 +23,18 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+
+        <Col md={4} className="project-card">
+            <ProjectCard
+              imgPath={linguavision}
+              isBlog={false}
+              title="LinguaVision - Multilingual Chatbot with Image Generation"
+              description="LinguaVision, an innovative language learning system that combines neural machine translation with real-time image generation to create an immersive educational experience. Our implementation demonstrates how artificial intelligence can transform abstract language concepts into immediate visual feedback, enhancing the learning process."
+              ghLink="https://github.com/SandaAbhishekSagar/LinguaVision/"
+              demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
+            />
+          </Col>
+
           <Col md={4} className="project-card">
             <ProjectCard
               imgPath={chatify}

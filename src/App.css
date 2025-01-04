@@ -28,6 +28,59 @@
   color: #61dafb;
 }
 
+/* Styles for the Home buttons */
+.home-buttons {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.home-btn {
+  font-size: 1.2em;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.home-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.home-btn-about {
+  background-color: #be50f4;
+  color: white;
+}
+
+.home-btn-about:hover {
+  background-color: white;
+  color: #be50f4;
+}
+
+.home-btn-projects {
+  background-color: #be50f4;
+  color: white;
+}
+
+.home-btn-projects:hover {
+  background-color: white;
+  color: #be50f4;
+}
+
+.home-btn-resume {
+  background-color: #be50f4;
+  color: white;
+}
+
+.home-btn-resume:hover {
+  background-color: white;
+  color: #be50f4;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
