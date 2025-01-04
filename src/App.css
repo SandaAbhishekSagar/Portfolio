@@ -35,6 +35,7 @@
 }
 
 .home-btn {
+  font-family: sans-serif !important;
   font-size: 1.2em;
   padding: 15px 30px;
   border: none;
