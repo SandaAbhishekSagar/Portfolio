@@ -162,7 +162,7 @@ function ResumeNew() {
       <Container fluid className="resume-section">
         <Particle />
         <Row style={{ justifyContent: "center", position: "relative" }}>
-          <Col md={6}>
+          {/* <Col md={6}>
             <Button
               variant={selectedResume === 1 ? "primary" : "outline-primary"}
               onClick={() => handleResumeSelect(1)}
@@ -170,8 +170,8 @@ function ResumeNew() {
             >
               Full Stack Resume
             </Button>
-          </Col>
-          <Col md={6}>
+          </Col> */}
+          <Col md={3}>
             <Button
               variant={selectedResume === 2 ? "primary" : "outline-primary"}
               onClick={() => handleResumeSelect(2)}
