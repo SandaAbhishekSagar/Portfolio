@@ -184,7 +184,7 @@ function ResumeNew() {
 
         <Row className="resume" style={{ maxHeight: "170vh", overflowY: "auto" }}>
           <Document
-            file={selectedResume === 1 ? pdf1 : pdf2}
+            file={selectedResume === 2 ? pdf1 : pdf2}
             onLoadSuccess={onDocumentLoadSuccess}
             className="d-flex justify-content-center flex-column align-items-center"
           >
@@ -201,7 +201,7 @@ function ResumeNew() {
         <Row style={{ justifyContent: "center", position: "relative" }}>
           <Button
             variant="primary"
-            href={selectedResume === 1 ? pdf1 : pdf2}
+            href={selectedResume === 2 ? pdf1 : pdf2}
             target="_blank"
             style={{ maxWidth: "250px" }}
           >
