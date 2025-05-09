@@ -25,7 +25,6 @@ import {SiNextdotjs,SiArduino,SiPytorch, SiRaspberrypi,SiTensorflow,
   SiOpencv,SiCplusplus} from "react-icons/si";
 // import{FaSharp} from "react-icons/fa"
 import { TbBrandCSharp } from "react-icons/tb";
-import { ImFontSize } from "react-icons/im";
 
 function Techstack() {
   return (

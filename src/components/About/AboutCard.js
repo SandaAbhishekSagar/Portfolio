@@ -1,6 +1,5 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import { ImPointRight } from "react-icons/im";
 
 function AboutCard() {
   return (
@@ -23,17 +22,7 @@ function AboutCard() {
             <br></br>
             I'm passionate about pushing the boundaries of AI innovation, as evidenced by my award-winning performance in the Roli.ai Generative AI Hackathon. My technical skillset includes proficiency in Python, PyTorch, TensorFlow, and various web development technologies, enabling me to build complete, end-to-end AI solutions.
           </p>
-          {/* <ul>
-            <li className="about-activity">
-              <ImPointRight /> Playing Games
-            </li>
-            <li className="about-activity">
-              <ImPointRight /> Dancing
-            </li>
-            <li className="about-activity">
-              <ImPointRight /> Travelling
-            </li>
-          </ul> */}
+          
 
           <p style={{ color: "rgb(155 126 172)" }}>
             "Strive to build things that make a difference!"{" "}
