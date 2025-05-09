@@ -1,8 +1,7 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { FaC,FaBrain, 
-  FaRobot, 
-  FaCode, FaPython, FaDatabase, FaAngular,FaChartLine, 
+  FaPython, FaDatabase, FaAngular, 
   FaLanguage } from "react-icons/fa6";
 import {
   DiJavascript1,
@@ -22,7 +21,7 @@ import { MdTranslate, MdComputer } from "react-icons/md";
 import { BsGraphUp, BsEye } from "react-icons/bs";
 import { RiComputerLine } from "react-icons/ri";
 import {SiNextdotjs,SiArduino,SiPytorch, SiRaspberrypi,SiTensorflow, 
-  SiOpencv,SiCplusplus} from "react-icons/si";
+  SiOpencv} from "react-icons/si";
 // import{FaSharp} from "react-icons/fa"
 import { TbBrandCSharp } from "react-icons/tb";
 
