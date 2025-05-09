@@ -17,50 +17,24 @@ function Home2() {
             <h1 style={{ fontSize: "2.6em" }}>
               LET ME <span className="purple"> INTRODUCE </span> MYSELF
             </h1>
+            <h2>Building the Future Through <span className="purple">AI Innovation</span></h2>
             <p className="home-about-body">
-            I am a trailblazing Full Stack Developer whose technical prowess and innovative mindset have positioned me at the forefront of the industry. 
-              <br />
-              <br />I am fluent in classics like
-              <i>
-                <b className="purple"> .NET, JavaScript, React, databases, and AI/ML </b>
-              </i>
+            Welcome to my portfolio! I'm <span className="purple">Abhishek Sagar Sanda, an AI engineer and researcher</span> dedicated to developing intelligent systems that solve real-world problems. 
               <br />
               <br />
-              I have consistently delivered high-impact solutions that optimize performance, enhance user engagement, and fortify security measures.
-             
-              Hailing from a prestigious academic background, my educational journey has been marked by a relentless pursuit of knowledge and a thirst for practical application. 
+              My journey in artificial intelligence spans the spectrum from <span className="purple"> natural language processing to computer vision and reinforcement learning.</span> As a graduate student in Information Systems at <span className="purple">Northeastern University</span>, I've focused on bridging theoretical AI concepts with practical applications that make a meaningful impact.
               <br></br>
               <br></br>
-              My technical expertise is complemented by exceptional &nbsp;
-              <i> <b className="purple">problem-solving skills, analytical acumen, and critical thinking abilities, </b></i>
-               enabling me to spearhead cross-functional initiatives and drive productivity gains.
+              My work is driven by a fascination with how machines can learn to understand language, recognize visual patterns, and make decisions through reinforcement. This has led me to develop projects like the Richard Wyckoff Trading Assistant, which uses Q-learning algorithms to identify optimal trading strategies, and LinguaVision, which combines neural machine translation with image generation to create immersive language learning experiences.
               <br></br>
               <br></br>
-              My field of Interest's are building new &nbsp;
-              <i>
-                <b className="purple">Web Technologies and Products </b> and
-                also in areas related to{" "}
-                <b className="purple">
-                  AI/ML.
-                </b>
-              </i>
-              <br />
-              <br />
-              Whenever possible, I also apply my passion for developing products
-              with <b className="purple">Node.js</b> and
-              <i>
-                <b className="purple">
-                  {" "}
-                  Modern Javascript Library and Frameworks
-                </b>
-              </i>
-              &nbsp; like
-              <i>
-                <b className="purple"> React.js and Next.js</b>
-              </i>
+              I'm particularly interested in how AI can enhance human capabilities rather than replace them. Whether it's creating personalized chatbots that adapt to user preferences, developing translation systems for low-resource languages like Manipuri, or building real-time security systems that can detect potential threats, my goal is to make technology more accessible, intuitive, and beneficial.
               <br></br>
               <br></br>
-              As I embark on the next chapter of my career, I am poised to make a transformative impact on the technology landscape. With a deep understanding of emerging trends and a relentless drive to push the boundaries of innovation, I am primed to be a driving force in shaping the future of the industry. My versatility, adaptability, and visionary mindset make me an invaluable asset to any organization seeking to stay ahead of the curve
+              With professional experience at Virtual Presenz and HCL Technologies, I've learned to balance technical excellence with user needs, creating solutions that are not only technically sophisticated but also user-friendly and effective in real-world environments.
+              <br></br>
+              <br></br>
+              I invite you to explore my projects and reach out if you're interested in collaborating on innovative AI solutions that push the boundaries of what's possible.
               <br></br>
               <br></br>
               

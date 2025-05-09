@@ -441,6 +441,8 @@ button:focus {
 .blockquote-footer {
   color: #a588c0 !important;
 }
+
+
 /* --------- */
 /* Projects */
 /* --------- */
@@ -563,6 +565,10 @@ button:focus {
   box-shadow: 4px 5px 4px 3px rgba(89, 4, 168, 0.137) !important;
   overflow: hidden !important;
   transition: all 0.4s ease 0s !important;
+}
+.tech-icon-images {
+  padding: 10px;
+  line-height: 1.6;
 }
 
 @media (max-width: 767px) {
