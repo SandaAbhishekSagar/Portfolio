@@ -13,6 +13,7 @@ import linguavision from "../../Assets/Projects/Output_1.png";
 import wyckoff from "../../Assets/Projects/wyckoff.jpeg"
 import translator from "../../Assets/Projects/translator.jpeg"
 
+
 function Projects() {
   const scrollableCardStyle = {
     maxHeight: "300px",  // Set a fixed height for description container
@@ -32,6 +33,17 @@ function Projects() {
           Here are a few projects I've worked on recently.
         </p>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+        <Col md={4} className="project-card">
+            <ProjectCard
+              imgPath={chatify}
+              isBlog={false}
+              title="RAG-Powered Northeastern University Chatbot"
+              description="Developed an AI-powered chatbot system focused on Northeastern University, featuring automated web scraping, semantic search, and a modern web interface. The platform enables users to ask natural language questions and receive instant, relevant answers sourced from hundreds of university web pages."
+              descriptionStyle={scrollableCardStyle}
+              // ghLink="https://github.com/SandaAbhishekSagar/LinguaVision/"
+              // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
+            />
+          </Col>
         <Col md={4} className="project-card">
             <ProjectCard
               imgPath={translator}
