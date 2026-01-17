@@ -26,6 +26,7 @@ function Footer() {
                 style={{ color: "white" }}
                 target="_blank" 
                 rel="noopener noreferrer"
+                aria-label="GitHub Profile"
               >
                 <AiFillGithub />
               </a>
@@ -37,6 +38,7 @@ function Footer() {
                 style={{ color: "white" }}
                 target="_blank" 
                 rel="noopener noreferrer"
+                aria-label="LinkedIn Profile"
               >
                 <FaLinkedinIn />
               </a>
@@ -47,6 +49,7 @@ function Footer() {
                 style={{ color: "white" }}
                 target="_blank" 
                 rel="noopener noreferrer"
+                aria-label="Instagram Profile"
               >
                 <AiFillInstagram />
               </a>

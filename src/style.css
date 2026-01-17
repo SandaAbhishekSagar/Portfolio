@@ -76,10 +76,12 @@ button:focus {
 /* Navbar Section  */
 /* --------- */
 .sticky {
-  background-color: #1b1a2ea9 !important;
+  background-color: rgba(27, 26, 46, 0.85) !important;
   transition: all 0.3s ease-out 0s !important;
-  box-shadow: 0px 10px 10px 0px rgba(9, 5, 29, 0.171) !important;
-  backdrop-filter: blur(15px) !important;
+  box-shadow: 0px 10px 30px 0px rgba(9, 5, 29, 0.4) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(200, 137, 230, 0.2) !important;
 }
 
 .navbar {
@@ -202,6 +204,15 @@ button:focus {
 }
 
 .navbar-nav .nav-item a:hover::after {
+  width: 100%;
+}
+
+.navbar-nav .nav-item a.active-nav {
+  color: #c95bf5 !important;
+  font-weight: 600 !important;
+}
+
+.navbar-nav .nav-item a.active-nav::after {
   width: 100%;
 }
 
@@ -468,11 +479,22 @@ button:focus {
   opacity: 0.9 !important;
   transition: all 0.5s ease 0s !important;
   height: 100% !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
 }
+
+.glassmorphism-card {
+  background: rgba(30, 20, 50, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(200, 137, 230, 0.3) !important;
+}
+
 .project-card-view:hover {
   transform: scale(1.02) !important;
   overflow: hidden !important;
-  box-shadow: 0 4px 4px 5px rgba(129, 72, 144, 0.561) !important;
+  box-shadow: 0 8px 16px 8px rgba(129, 72, 144, 0.7) !important;
+  border-color: rgba(200, 137, 230, 0.6) !important;
 }
 
 .blog-card {
@@ -560,11 +582,14 @@ button:focus {
   border: 1.7px solid rgba(200, 137, 230, 0.637) !important;
   vertical-align: middle !important;
   text-align: center !important;
-  border-radius: 5px !important;
+  border-radius: 12px !important;
   display: table !important;
   box-shadow: 4px 5px 4px 3px rgba(89, 4, 168, 0.137) !important;
   overflow: hidden !important;
   transition: all 0.4s ease 0s !important;
+  background: rgba(30, 20, 50, 0.3) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
 }
 .tech-icon-images {
   padding: 10px;
@@ -578,9 +603,11 @@ button:focus {
 }
 
 .tech-icons:hover {
-  transform: scale(1.05) !important;
+  transform: scale(1.1) translateY(-5px) !important;
   overflow: hidden !important;
   border: 2.2px solid rgba(197, 115, 230, 0.883) !important;
+  box-shadow: 0 8px 16px 4px rgba(197, 115, 230, 0.4) !important;
+  background: rgba(50, 30, 70, 0.5) !important;
 }
 .tech-icon-images {
   padding: 20px !important;
@@ -590,7 +617,13 @@ button:focus {
 .quote-card-view {
   border: none !important;
   color: white !important;
-  background-color: transparent !important;
+  background: rgba(30, 20, 50, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 15px !important;
+  border: 1px solid rgba(200, 137, 230, 0.3) !important;
+  padding: 20px !important;
+  box-shadow: 0 8px 32px 0 rgba(119, 53, 136, 0.37) !important;
 }
 
 .about-activity {
@@ -746,4 +779,121 @@ button:focus {
 }
 .fork-btn-inner::after {
   display: none !important;
+}
+
+/* --------- */
+/* Modern Enhancements */
+/* --------- */
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced section transitions */
+section {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(135deg, #c770f0 0%, #be50f4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced button styles */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Enhanced card image hover effect */
+.card-img-top {
+  transition: transform 0.5s ease;
+}
+
+.project-card-view:hover .card-img-top {
+  transform: scale(1.1);
+}
+
+/* Loading animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Enhanced scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #c770f0, #be50f4);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #be50f4, #c770f0);
+}
+
+/* Enhanced focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid #c95bf5;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Performance optimization */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

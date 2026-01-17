@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ProjectCard from "./ProjectCards";
 import Particle from "../Particle";
+import AnimationWrapper from "../AnimationWrapper";
 // import emotion from "../../Assets/Projects/emotion.png";
 import online from "../../Assets/Projects/online_course.png";
 import chatify from "../../Assets/Projects/chatify.png";
@@ -26,15 +27,20 @@ function Projects() {
     <Container fluid className="project-section">
       <Particle />
       <Container>
-        <h1 className="project-heading">
-          My Recent <strong className="purple">Works </strong>
-        </h1>
-        <p style={{ color: "white" }}>
-          Here are a few projects I've worked on recently.
-        </p>
+        <AnimationWrapper direction="up" delay={0.1}>
+          <h1 className="project-heading">
+            My Recent <strong className="purple">Works </strong>
+          </h1>
+        </AnimationWrapper>
+        <AnimationWrapper direction="up" delay={0.2}>
+          <p style={{ color: "white" }}>
+            Here are a few projects I've worked on recently.
+          </p>
+        </AnimationWrapper>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
         <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.1}>
+              <ProjectCard
               imgPath={chatify}
               isBlog={false}
               title="RAG-Powered Northeastern University Chatbot"
@@ -43,9 +49,11 @@ function Projects() {
               // ghLink="https://github.com/SandaAbhishekSagar/LinguaVision/"
               // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
             />
+            </AnimationWrapper>
           </Col>
         <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.2}>
+              <ProjectCard
               imgPath={translator}
               isBlog={false}
               title="English-to-Manipuri Neural Machine Translation System"
@@ -54,9 +62,11 @@ function Projects() {
               // ghLink="https://github.com/SandaAbhishekSagar/LinguaVision/"
               // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
             />
+            </AnimationWrapper>
           </Col>
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.3}>
+              <ProjectCard
               imgPath={wyckoff}
               isBlog={false}
               title="Richard Wyckoff Trading Assistant"
@@ -67,9 +77,11 @@ Built with Python, Flask, PyTorch, JavaScript, and Chart.js, the project showcas
               descriptionStyle={scrollableCardStyle}
               // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
             />
+            </AnimationWrapper>
           </Col>
         <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.1}>
+              <ProjectCard
               imgPath={linguavision}
               isBlog={false}
               title="LinguaVision - Multilingual Chatbot with Image Generation"
@@ -80,10 +92,12 @@ By bridging the gap between textual understanding and visual context, LinguaVisi
               descriptionStyle={scrollableCardStyle}
               demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
             />
+            </AnimationWrapper>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.2}>
+              <ProjectCard
               imgPath={chatify}
               isBlog={false}
               title="Abhishek Sagar's Dynamic Chatbot"
@@ -99,12 +113,14 @@ This solution leverages the Roli.ai development environment in conjunction with 
               descriptionStyle={scrollableCardStyle}
               demoLink="https://www.linkedin.com/posts/sandaabhisheksagar_ai-generativeai-chatbot-activity-7189346944568164352-p6VU?utm_source=share&utm_medium=member_desktop"
             />
+            </AnimationWrapper>
           </Col>
 
           
 
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.3}>
+              <ProjectCard
               imgPath={dispatch}
               isBlog={false}
               title="DispatchGenius"
@@ -122,10 +138,12 @@ The application follows design patterns that prioritize scalability and efficien
               descriptionStyle={scrollableCardStyle}
               demoLink="https://youtu.be/WjvoS7NX-A8"              
             />
+            </AnimationWrapper>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.1}>
+              <ProjectCard
               imgPath={eat}
               isBlog={false}
               title="EatWise"
@@ -142,9 +160,11 @@ The system architecture prioritizes extensibility, allowing for the planned inte
               descriptionStyle={scrollableCardStyle}
               demoLink="https://youtu.be/KbH-XmQx7dw"
             />
+            </AnimationWrapper>
           </Col>
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.2}>
+              <ProjectCard
               imgPath={food}
               isBlog={false}
               title="Cyber Cuisine Ordering Solution"
@@ -163,10 +183,12 @@ The application follows modern web development practices with component-based ar
               descriptionStyle={scrollableCardStyle}
               // demoLink="https://blogs.soumya-jit.tech/"
             />
+            </AnimationWrapper>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.3}>
+              <ProjectCard
               imgPath={online}
               isBlog={false}
               title="Acadamify"
@@ -175,10 +197,12 @@ The application follows modern web development practices with component-based ar
               descriptionStyle={scrollableCardStyle}
               // demoLink="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" <--------Please include a demo link here
             />
+            </AnimationWrapper>
           </Col>
 
           <Col md={4} className="project-card">
-            <ProjectCard
+            <AnimationWrapper direction="up" delay={0.1}>
+              <ProjectCard
               imgPath={weapon}
               isBlog={false}
               title="Wepon Detection"
@@ -196,6 +220,7 @@ The system employs a unified detection approach that enables single-pass analysi
               descriptionStyle={scrollableCardStyle}
               // demoLink="https://blogs.soumya-jit.tech/"      <--------Please include a demo link here 
             />
+            </AnimationWrapper>
           </Col>
         </Row>
       </Container>

@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { motion } from "framer-motion";
 import myImg from "../../Assets/avatar.svg";
 import Tilt from "react-parallax-tilt";
+import AnimationWrapper from "../AnimationWrapper";
 import {
   AiFillGithub,
   AiFillInstagram,
@@ -14,11 +16,16 @@ function Home2() {
       <Container>
         <Row>
           <Col md={8} className="home-about-description">
-            <h1 style={{ fontSize: "2.6em" }}>
-              LET ME <span className="purple"> INTRODUCE </span> MYSELF
-            </h1>
-            <h2>Building the Future Through <span className="purple">AI Innovation</span></h2>
-            <p className="home-about-body">
+            <AnimationWrapper direction="up" delay={0.1}>
+              <h1 style={{ fontSize: "2.6em" }}>
+                LET ME <span className="purple"> INTRODUCE </span> MYSELF
+              </h1>
+            </AnimationWrapper>
+            <AnimationWrapper direction="up" delay={0.2}>
+              <h2>Building the Future Through <span className="purple">AI Innovation</span></h2>
+            </AnimationWrapper>
+            <AnimationWrapper direction="up" delay={0.3}>
+              <p className="home-about-body">
             Welcome to my portfolio! I'm <span className="purple">Abhishek Sagar Sanda, an AI engineer and researcher</span> dedicated to developing intelligent systems that solve real-world problems. 
               <br />
               <br />
@@ -38,53 +45,80 @@ function Home2() {
               <br></br>
               <br></br>
               
-            </p>
+              </p>
+            </AnimationWrapper>
           </Col>
           <Col md={4} className="myAvtar">
-            <Tilt>
-              <img src={myImg} className="img-fluid" alt="avatar" />
-            </Tilt>
+            <AnimationWrapper direction="right" delay={0.4}>
+              <Tilt>
+                <motion.img
+                  src={myImg}
+                  className="img-fluid"
+                  alt="avatar"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                />
+              </Tilt>
+            </AnimationWrapper>
           </Col>
         </Row>
         <Row>
           <Col md={12} className="home-about-social">
-            <h1>FIND ME ON</h1>
-            <p>
-              Feel free to <span className="purple">connect </span>with me
-            </p>
-            <ul className="home-about-social-links">
-              <li className="social-icons">
-                <a
-                  href="https://github.com/SandaAbhishekSagar"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+            <AnimationWrapper direction="up" delay={0.1}>
+              <h1>FIND ME ON</h1>
+            </AnimationWrapper>
+            <AnimationWrapper direction="up" delay={0.2}>
+              <p>
+                Feel free to <span className="purple">connect </span>with me
+              </p>
+            </AnimationWrapper>
+            <AnimationWrapper direction="up" delay={0.3}>
+              <ul className="home-about-social-links">
+                <motion.li
+                  className="social-icons"
+                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <AiFillGithub />
-                </a>
-              </li>
-              
-              <li className="social-icons">
-                <a
-                  href="https://www.linkedin.com/in/sandaabhisheksagar/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour  home-social-icons"
+                  <a
+                    href="https://github.com/SandaAbhishekSagar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icon-colour  home-social-icons"
+                  >
+                    <AiFillGithub />
+                  </a>
+                </motion.li>
+                
+                <motion.li
+                  className="social-icons"
+                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <FaLinkedinIn />
-                </a>
-              </li>
-              <li className="social-icons">
-                <a
-                  href="https://www.instagram.com/s.abhishek_sagar?igsh=MXNkbXZhOXQ2Z2h5cw%3D%3D&utm_source=qr"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="icon-colour home-social-icons"
+                  <a
+                    href="https://www.linkedin.com/in/sandaabhisheksagar/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icon-colour  home-social-icons"
+                  >
+                    <FaLinkedinIn />
+                  </a>
+                </motion.li>
+                <motion.li
+                  className="social-icons"
+                  whileHover={{ scale: 1.2, y: -5 }}
+                  whileTap={{ scale: 0.9 }}
                 >
-                  <AiFillInstagram />
-                </a>
-              </li>
-            </ul>
+                  <a
+                    href="https://www.instagram.com/s.abhishek_sagar?igsh=MXNkbXZhOXQ2Z2h5cw%3D%3D&utm_source=qr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="icon-colour home-social-icons"
+                  >
+                    <AiFillInstagram />
+                  </a>
+                </motion.li>
+              </ul>
+            </AnimationWrapper>
           </Col>
         </Row>
       </Container>
