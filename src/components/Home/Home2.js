@@ -26,22 +26,22 @@ function Home2() {
             </AnimationWrapper>
             <AnimationWrapper direction="up" delay={0.3}>
               <p className="home-about-body">
-            Welcome to my portfolio! I'm <span className="purple">Abhishek Sagar Sanda, an AI engineer and researcher</span> dedicated to developing intelligent systems that solve real-world problems. 
+            Welcome to my portfolio! I'm <span className="purple">Abhishek Sagar Sanda, a Graduate AI Engineer</span> specializing in LLM applications and computer vision, passionate about building intelligent systems that transform how we interact with technology.
               <br />
               <br />
-              My journey in artificial intelligence spans the spectrum from <span className="purple"> natural language processing to computer vision and reinforcement learning.</span> As a graduate student in Information Systems at <span className="purple">Northeastern University</span>, I've focused on bridging theoretical AI concepts with practical applications that make a meaningful impact.
+              Currently, I'm pursuing my Master's in Information Systems at <span className="purple">Northeastern University (GPA: 3.85)</span> and serving as a <span className="purple">Teaching Assistant</span> for advanced generative AI coursework. My journey is marked by recognition as a <span className="purple">Top-10 Finalist in Murf.AI Coding Challenge</span> and as <span className="purple">Winner of Northeastern's Roli.AI Hackathon</span>.
               <br></br>
               <br></br>
-              My work is driven by a fascination with how machines can learn to understand language, recognize visual patterns, and make decisions through reinforcement. This has led me to develop projects like the Richard Wyckoff Trading Assistant, which uses Q-learning algorithms to identify optimal trading strategies, and LinguaVision, which combines neural machine translation with image generation to create immersive language learning experiences.
+              My expertise lies in fine-tuning state-of-the-art models like <span className="purple">YOLOv8 and GPT-4 for multimodal applications</span>, building production-ready RAG pipelines, and developing full-stack AI systems. I've engineered solutions that achieve 85% detection accuracy on 70,000+ images, reduce response latency by up to 50%, and process 80,000+ documents for real-time semantic search.
               <br></br>
               <br></br>
-              I'm particularly interested in how AI can enhance human capabilities rather than replace them. Whether it's creating personalized chatbots that adapt to user preferences, developing translation systems for low-resource languages like Manipuri, or building real-time security systems that can detect potential threats, my goal is to make technology more accessible, intuitive, and beneficial.
+              What drives me is creating AI solutions that enhance human capabilities—from building voice-based interview coaching systems with intelligent feedback, to developing RAG-powered chatbots that understand context across massive knowledge bases, to implementing reinforcement learning trading systems that make complex financial strategies accessible. Each project balances cutting-edge research with practical, scalable implementation.
               <br></br>
               <br></br>
-              With professional experience at Virtual Presenz and HCL Technologies, I've learned to balance technical excellence with user needs, creating solutions that are not only technically sophisticated but also user-friendly and effective in real-world environments.
+              With professional experience spanning research at Virtual Presenz, enterprise development at HCL Technologies, and now teaching at Northeastern, I've learned to transform complex AI concepts into intuitive, impactful products. I'm always excited to explore new challenges in generative AI, computer vision, and NLP.
               <br></br>
               <br></br>
-              I invite you to explore my projects and reach out if you're interested in collaborating on innovative AI solutions that push the boundaries of what's possible.
+              Explore my work below, and let's connect to discuss how AI can solve your next challenge!
               <br></br>
               <br></br>
               

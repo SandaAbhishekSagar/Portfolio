@@ -34,7 +34,7 @@ function Projects() {
         </AnimationWrapper>
         <AnimationWrapper direction="up" delay={0.2}>
           <p style={{ color: "white" }}>
-            Here are a few projects I've worked on recently.
+            Showcasing cutting-edge AI projects spanning LLM applications, computer vision, and full-stack systems. Each project demonstrates production-ready solutions with measurable impact.
           </p>
         </AnimationWrapper>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
@@ -43,39 +43,56 @@ function Projects() {
               <ProjectCard
               imgPath={chatify}
               isBlog={false}
-              title="RAG-Powered Northeastern University Chatbot"
-              description="Developed an AI-powered chatbot system focused on Northeastern University, featuring automated web scraping, semantic search, and a modern web interface. The platform enables users to ask natural language questions and receive instant, relevant answers sourced from hundreds of university web pages."
+              title="AI-Powered Interview Coaching IVR System"
+              description="Developed a production-grade, full-stack AI-powered IVR platform using Node.js, Express, PostgreSQL, and Twilio, enabling real-time, voice-based interview simulations and automated feedback for mock interview sessions. The system features secure JWT authentication, RESTful APIs, and seamless integration of OpenAI GPT-4 and MurfAI services for intelligent question generation and text-to-speech capabilities.
+
+Optimized API performance to reduce average response latency by 40%, resulting in a scalable, production-ready system deployed on Railway. The platform demonstrates advanced capabilities in voice AI, natural language understanding, and automated assessment, providing candidates with realistic interview practice and constructive feedback."
               descriptionStyle={scrollableCardStyle}
-              // ghLink="https://github.com/SandaAbhishekSagar/LinguaVision/"
-              // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
+              ghLink="https://github.com/SandaAbhishekSagar"
+              demoLink="tel:+18888056555"
             />
             </AnimationWrapper>
           </Col>
         <Col md={4} className="project-card">
             <AnimationWrapper direction="up" delay={0.2}>
               <ProjectCard
-              imgPath={translator}
+              imgPath={chatify}
               isBlog={false}
-              title="English-to-Manipuri Neural Machine Translation System"
-              description="This project implements a Transformer-based neural machine translation system that translates between English and Manipuri language written in the Meetei Mayek script. Built using PyTorch, the system features a complete encoder-decoder architecture with multi-head attention mechanisms, custom tokenization handling for both languages, and GPU acceleration for efficient training. The model was trained on a parallel corpus of English-Manipuri text pairs and demonstrates the challenges of working with low-resource languages and non-Latin writing systems. The interactive chat functionality allows users to type English text and receive Manipuri translations in real-time, though some post-processing is needed to handle proper character spacing in the Meetei Mayek script output."
+              title="RAG-Powered Northeastern University Chatbot"
+              description="Built an end-to-end AI-powered chatbot system for Northeastern University using Python, FastAPI, Scrapy, and ChromaDB, enabling real-time natural language search and Q&A over 80,000+ scraped university web pages. The system provides instant, accurate answers to student queries by leveraging advanced semantic search and retrieval-augmented generation (RAG) techniques.
+
+Engineered a robust data pipeline for large-scale web scraping, semantic document indexing, and automated data management, ensuring production readiness. The modern web frontend delivers an intuitive user experience, making vast university resources easily accessible through conversational AI. Deployed and accessible for students to navigate complex university information efficiently."
               descriptionStyle={scrollableCardStyle}
-              // ghLink="https://github.com/SandaAbhishekSagar/LinguaVision/"
-              // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
+              ghLink="https://github.com/SandaAbhishekSagar"
+              demoLink="https://northeastern-university-chatbot.vercel.app/"
             />
             </AnimationWrapper>
           </Col>
-          <Col md={4} className="project-card">
+        <Col md={4} className="project-card">
             <AnimationWrapper direction="up" delay={0.3}>
               <ProjectCard
               imgPath={wyckoff}
               isBlog={false}
-              title="Richard Wyckoff Trading Assistant"
-              description="A full-stack web application that combines artificial intelligence with financial analysis to assist traders using Wyckoff methodology principles. The system features a dual-component architecture: (1) an interactive Q&A chatbot trained on Wyckoff trading concepts to answer methodology questions, and (2) a reinforcement learning-powered trading strategy that uses Q-learning to identify optimal buy/sell signals.
-Users can backtest trading strategies across any stock symbol, visualize performance metrics, and analyze trading signals through an intuitive dashboard with interactive price charts and technical indicators. The application seamlessly integrates PyTorch-based NLP models with Flask backend services and a responsive frontend, demonstrating practical applications of AI in financial technology.
-Built with Python, Flask, PyTorch, JavaScript, and Chart.js, the project showcases advanced implementation of reinforcement learning for algorithmic trading while making complex financial concepts accessible through an AI-powered assistant."
+              title="AI-Powered Richard Wyckoff Trading Assistant"
+              description="Built a full-stack Wyckoff Trading Assistant using Flask, PyTorch, and Chart.js, featuring a transformer-based chatbot (8-head, 6-layer model trained on 1,189 Q&A pairs), real-time market analytics, 6+ technical indicators, and 3 REST APIs with robust error handling and responsive Bootstrap UI.
+
+Implemented a Q-learning reinforcement learning backtesting engine with ε-greedy strategy over 1,000 training episodes, achieving 15% improved ROI prediction accuracy. Optimized performance through lazy loading and caching, reducing API response time by 40% for scalable trading experiments. The system enables traders to backtest strategies across any stock symbol, visualize performance metrics, and analyze trading signals through an intuitive dashboard with interactive charts."
               ghLink="https://github.com/SandaAbhishekSagar/Transformer-based-Richard-Wyckoff-Trading-Assistant"
               descriptionStyle={scrollableCardStyle}
-              // demoLink="https://huggingface.co/spaces/abhisheksagar/english-learning-chatbot"
+            />
+            </AnimationWrapper>
+          </Col>
+        <Col md={4} className="project-card">
+            <AnimationWrapper direction="up" delay={0.1}>
+              <ProjectCard
+              imgPath={translator}
+              isBlog={false}
+              title="Neural Machine Translation for Low-Resource Languages"
+              description="Trained a PyTorch-based Transformer model to translate low-resource language pairs (English-Manipuri) with custom tokenization using BPE (Byte Pair Encoding) and SentencePiece algorithms. The system addresses the unique challenges of working with non-Latin scripts (Meetei Mayek) and limited training data.
+
+Employed advanced techniques including prompt tuning and dataset augmentation to handle ambiguous source structures and improve translation quality. The model demonstrates the practical applications of transformer architectures for low-resource language pairs, showcasing how custom tokenization strategies can overcome challenges in multilingual NLP systems."
+              descriptionStyle={scrollableCardStyle}
+              ghLink="https://github.com/SandaAbhishekSagar"
             />
             </AnimationWrapper>
           </Col>
@@ -100,15 +117,12 @@ By bridging the gap between textual understanding and visual context, LinguaVisi
               <ProjectCard
               imgPath={chatify}
               isBlog={false}
-              title="Abhishek Sagar's Dynamic Chatbot"
-              description="Dynamic Chatbot represents an innovative approach to personalized AI interaction through adaptive customization. The system employs a three-question configuration process to establish user preferences, creating a tailored conversational experience within defined parameters.
-Key features include:
+              title="Abhishek Sagar's Dynamic Chatbot (Roli.AI Hackathon Winner)"
+              description="Developed an award-winning dynamic chatbot system that represents an innovative approach to personalized AI interaction through adaptive customization. As the Winner of Northeastern's Roli.AI Hackathon, this project demonstrates cutting-edge conversational AI capabilities.
 
-Preference-based customization: The chatbot adapts its behavior, specialization area, and tone based on user responses to three fundamental questions
-Boundary recognition: Once configured, the system maintains conversation within its established domains of expertise
-Customer support integration: A dedicated assistance mode helps users navigate the application and address specific inquiries
+The system employs a three-question configuration process to establish user preferences, creating a tailored conversational experience within defined parameters. Key innovations include preference-based customization, intelligent boundary recognition, and seamless customer support integration.
 
-This solution leverages the Roli.ai development environment in conjunction with JavaScript and the ChatGPT API, representing an elegant implementation of conversational AI that balances personalization with practical functionality. Developed as part of the Roli.ai hackathon, the project demonstrates effective application of contemporary AI technologies to create responsive, user-centric conversational experiences."
+Built using the Roli.ai development environment with JavaScript and ChatGPT API integration, the solution balances personalization with practical functionality. The chatbot adapts its behavior, specialization area, and tone dynamically, creating responsive, user-centric conversational experiences that showcase effective application of contemporary AI technologies."
               ghLink="https://github.com/SandaAbhishekSagar/AI_dynamic-chatbot"
               descriptionStyle={scrollableCardStyle}
               demoLink="https://www.linkedin.com/posts/sandaabhisheksagar_ai-generativeai-chatbot-activity-7189346944568164352-p6VU?utm_source=share&utm_medium=member_desktop"
