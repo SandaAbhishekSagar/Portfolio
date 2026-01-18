@@ -61,13 +61,22 @@ function Github() {
             contributions in the last year
           </p>
         )}
-        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <div style={{ display: "flex", justifyContent: "center", width: "100%", paddingTop: "10px" }}>
           <GitHubCalendar
             username="SandaAbhishekSagar"
             blockSize={15}
             blockMargin={5}
-            color="#c084f5"
             fontSize={16}
+            theme={{
+              level0: "#161b22",
+              level1: "#0e4429",
+              level2: "#006d32",
+              level3: "#26a641",
+              level4: "#39d353",
+            }}
+            style={{
+              color: "#8b949e",
+            }}
           />
         </div>
       </Col>
