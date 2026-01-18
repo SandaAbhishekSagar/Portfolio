@@ -897,3 +897,55 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+/* --------- */
+/* GitHub Calendar Styling to Match GitHub's Exact Look */
+/* --------- */
+.github-calendar-wrapper {
+  width: 100%;
+  max-width: 896px;
+  margin: 0 auto;
+}
+
+.github-calendar-wrapper svg {
+  width: 100%;
+  max-width: 896px;
+}
+
+.github-calendar-wrapper text {
+  fill: #8b949e !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif !important;
+  font-size: 12px !important;
+}
+
+.github-calendar-wrapper .react-activity-calendar__calendar-month-label {
+  fill: #8b949e !important;
+  font-size: 12px !important;
+}
+
+.github-calendar-wrapper .react-activity-calendar__legend {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  margin-top: 16px !important;
+  justify-content: flex-end !important;
+}
+
+.github-calendar-wrapper .react-activity-calendar__legend-labels {
+  display: flex !important;
+  gap: 4px !important;
+  font-size: 12px !important;
+  color: #8b949e !important;
+  margin-left: 8px !important;
+}
+
+.github-calendar-wrapper .react-activity-calendar__calendar-day {
+  shape-rendering: geometricPrecision !important;
+  outline: 1px solid rgba(27, 31, 35, 0.06) !important;
+  outline-offset: -1px !important;
+}
+
+.github-calendar-wrapper .react-activity-calendar__calendar-day:hover {
+  outline: 1px solid rgba(255, 255, 255, 0.5) !important;
+  outline-offset: -1px !important;
+}
