@@ -64,12 +64,12 @@ function SupportCopilotWidget() {
             id="supportcopilot-embed"
             src={widgetUrl}
             title="Virtual Assistant"
+            loading="eager"
             style={{
               width: "100%",
               height: "100%",
               border: "none",
               display: "block",
-              borderRadius: "inherit",
             }}
           />
           </div>
