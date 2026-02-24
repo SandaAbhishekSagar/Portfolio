@@ -138,13 +138,6 @@ function NavBar() {
               >
                 <CgFileDocument style={{ marginBottom: "2px" }} /> Resume
             <Nav.Item>
-              <Nav.Link
-                href="#widget"
-                onClick={(e) => handleNavClick("widget", e)}
-                className={activeSection === "widget" ? "active-nav" : ""}
-              >
-                <MdWidgets style={{ marginBottom: "2px" }} /> Widget
-              </Nav.Link>
             </Nav.Item>
 
               </Nav.Link>
