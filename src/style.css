@@ -1095,7 +1095,7 @@ img {
   min-width: 420px;
   height: min(700px, 80dvh);
   min-height: 480px;
-  max-height: 700px;
+  max-height: 480px;
   z-index: 999999;
   border: none;
   border-radius: 12px;
