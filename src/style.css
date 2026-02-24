@@ -1047,25 +1047,90 @@ img {
 /* --------- */
 /* SupportCopilot AI Virtual Assistant widget */
 /* --------- */
-.supportcopilot-widget,
-#supportcopilot-widget-container {
+/* Launcher button only - small FAB, no big rectangle by default */
+.supportcopilot-launcher {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999998;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  border: none;
+  border-radius: 28px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.supportcopilot-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+.supportcopilot-launcher-label {
+  white-space: nowrap;
+}
+@media (max-width: 480px) {
+  .supportcopilot-launcher-label {
+    display: none;
+  }
+  .supportcopilot-launcher {
+    padding: 14px;
+    border-radius: 50%;
+  }
+}
+
+/* Panel only when open - no visible box until user clicks */
+.supportcopilot-widget-panel,
+.supportcopilot-widget.supportcopilot-widget-panel,
+#supportcopilot-widget-container.supportcopilot-widget-panel {
   position: fixed;
   bottom: 24px;
   right: 24px;
   width: 420px;
   height: 700px;
+  max-height: calc(100vh - 48px);
   z-index: 999999;
   border: none;
   border-radius: 12px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(199, 112, 240, 0.25);
   overflow: hidden;
+  background: #fff;
+}
+.supportcopilot-widget-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.supportcopilot-widget-close:hover {
+  background: rgba(0, 0, 0, 0.75);
 }
 
 @media (max-width: 639px) {
-  .supportcopilot-widget,
-  #supportcopilot-widget-container {
+  .supportcopilot-widget-panel,
+  .supportcopilot-widget.supportcopilot-widget-panel,
+  #supportcopilot-widget-container.supportcopilot-widget-panel {
     width: 100vw;
     height: 100dvh;
+    max-height: none;
     bottom: 0;
     right: 0;
     border-radius: 0;
