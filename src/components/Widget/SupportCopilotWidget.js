@@ -59,7 +59,8 @@ function SupportCopilotWidget() {
           >
             ×
           </button>
-          <iframe
+          <div className="supportcopilot-iframe-wrap">
+            <iframe
             id="supportcopilot-embed"
             src={widgetUrl}
             title="Virtual Assistant"
@@ -71,6 +72,7 @@ function SupportCopilotWidget() {
               borderRadius: "inherit",
             }}
           />
+          </div>
         </div>
       )}
     </>

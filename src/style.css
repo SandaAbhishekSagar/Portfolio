@@ -1092,7 +1092,7 @@ img {
   bottom: 24px;
   right: 24px;
   width: 420px;
-  height: 700px;
+  height: calc(100dvh - 48px);
   max-height: calc(100vh - 48px);
   z-index: 999999;
   border: none;
@@ -1100,6 +1100,19 @@ img {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(199, 112, 240, 0.25);
   overflow: hidden;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.supportcopilot-iframe-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.supportcopilot-iframe-wrap iframe {
+  flex: 1;
+  min-height: 100%;
 }
 .supportcopilot-widget-close {
   position: absolute;
