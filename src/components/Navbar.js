@@ -9,9 +9,9 @@ import {
   AiFillStar,
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
-import { MdWidgets } from "react-icons/md";
   AiOutlineUser,
 } from "react-icons/ai";
+import { MdWidgets } from "react-icons/md";
 import { CgFileDocument } from "react-icons/cg";
 
 function NavBar() {
