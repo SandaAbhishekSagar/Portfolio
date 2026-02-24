@@ -1091,9 +1091,10 @@ img {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 420px;
-  height: 700px;
-  max-height: 700px;
+  width: 460px;
+  min-width: 420px;
+  height: 600px;
+  max-height: 600px;
   z-index: 999999;
   border: none;
   border-radius: 12px;
@@ -1109,6 +1110,7 @@ img {
   overflow: hidden;
   position: relative;
   width: 100%;
+  min-width: 0;
 }
 .supportcopilot-iframe-wrap iframe {
   position: absolute;
