@@ -1092,8 +1092,8 @@ img {
   bottom: 24px;
   right: 24px;
   width: 420px;
-  height: calc(100dvh - 48px);
-  max-height: calc(100vh - 48px);
+  height: 700px;
+  max-height: 700px;
   z-index: 999999;
   border: none;
   border-radius: 12px;
