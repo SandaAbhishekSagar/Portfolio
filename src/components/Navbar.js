@@ -11,7 +11,6 @@ import {
   AiOutlineFundProjectionScreen,
   AiOutlineUser,
 } from "react-icons/ai";
-import { MdWidgets } from "react-icons/md";
 import { CgFileDocument } from "react-icons/cg";
 
 function NavBar() {
