@@ -9,6 +9,7 @@ import {
   AiFillStar,
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
+import { MdWidgets } from "react-icons/md";
   AiOutlineUser,
 } from "react-icons/ai";
 import { CgFileDocument } from "react-icons/cg";
@@ -136,6 +137,16 @@ function NavBar() {
                 className={activeSection === "resume" ? "active-nav" : ""}
               >
                 <CgFileDocument style={{ marginBottom: "2px" }} /> Resume
+            <Nav.Item>
+              <Nav.Link
+                href="#widget"
+                onClick={(e) => handleNavClick("widget", e)}
+                className={activeSection === "widget" ? "active-nav" : ""}
+              >
+                <MdWidgets style={{ marginBottom: "2px" }} /> Widget
+              </Nav.Link>
+            </Nav.Item>
+
               </Nav.Link>
             </Nav.Item>
 
