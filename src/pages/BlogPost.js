@@ -78,13 +78,35 @@ function BlogPost() {
     );
   }
 
-  if (!post || notFound) {
+  if ((!post || notFound) && !error) {
     return (
       <Container fluid className="project-section">
         <Container>
           <Row style={{ justifyContent: "center", padding: "50px" }}>
             <Col md={8}>
               <h1 style={{ color: "white", textAlign: "center" }}>Post Not Found</h1>
+              <div style={{ textAlign: "center", marginTop: "30px" }}>
+                <Link to="/blog" className="btn btn-primary">
+                  Back to Blog
+                </Link>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
+    );
+  }
+
+  if (error && !post) {
+    return (
+      <Container fluid className="project-section">
+        <Container>
+          <Row style={{ justifyContent: "center", padding: "50px" }}>
+            <Col md={8}>
+              <h1 style={{ color: "white", textAlign: "center" }}>Error loading article</h1>
+              <p style={{ color: "rgba(255,255,255,0.7)", textAlign: "center", marginTop: "15px" }}>
+                {error}
+              </p>
               <div style={{ textAlign: "center", marginTop: "30px" }}>
                 <Link to="/blog" className="btn btn-primary">
                   Back to Blog
