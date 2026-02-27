@@ -1,3 +1,31 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemaps
+Sitemap: https://abhishek-sagar-sanda.netlify.app/sitemap.xml
+
+# RSS Feed
+User-agent: *
+Allow: /rss.xml
+
+# Optimize crawl budget - block unnecessary files
+Disallow: *.css$
+Disallow: *.js$
+Disallow: *.json$
+Disallow: /static/
+Disallow: /_next/
+Disallow: /node_modules/
+Disallow: /.env
+
+# SEO improvements
+Crawl-delay: 1
+
+# Social media bots
+User-agent: facebookexternalhit/*
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
