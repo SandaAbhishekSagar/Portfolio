@@ -1,5 +1,5 @@
 {
-  "homepage":"https://abhishek-sagar-sanda.netlify.app",
+  "homepage": "https://abhishek-sagar-sanda.netlify.app",
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
@@ -18,12 +18,16 @@
     "react-bootstrap": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-github-calendar": "^3.2.2",
+    "react-helmet-async": "^2.0.5",
     "react-icons": "^4.12.0",
     "react-intersection-observer": "^9.5.3",
+    "react-markdown": "^10.1.0",
     "react-parallax-tilt": "^1.7.42",
     "react-pdf": "^5.7.1",
+    "react-router-dom": "^7.13.1",
     "react-scripts": "5.0.1",
     "react-tsparticles": "^1.42.2",
+    "remark-gfm": "^4.0.1",
     "typewriter-effect": "^2.18.2",
     "web-vitals": "^2.1.4"
   },
@@ -32,8 +36,8 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "start:3001": "set PORT=3001 && react-scripts start",
     "build": "react-scripts build",

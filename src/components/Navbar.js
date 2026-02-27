@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
@@ -10,6 +11,7 @@ import {
   AiOutlineHome,
   AiOutlineFundProjectionScreen,
   AiOutlineUser,
+  AiOutlineRead,
 } from "react-icons/ai";
 import { CgFileDocument } from "react-icons/cg";
 
@@ -17,6 +19,8 @@ function NavBar() {
   const [expand, updateExpanded] = useState(false);
   const [navColour, updateNavbar] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   function scrollHandler() {
     if (window.scrollY >= 20) {
@@ -25,16 +29,20 @@ function NavBar() {
       updateNavbar(false);
     }
 
-    // Update active section based on scroll position
-    const sections = ["home", "about", "projects", "resume"];
-    const scrollPosition = window.scrollY + 100;
+    // Update active section based on scroll position (only on home page)
+    if (location.pathname === "/") {
+      const sections = ["home", "about", "projects", "resume"];
+      const scrollPosition = window.scrollY + 100;
 
-    for (let i = sections.length - 1; i >= 0; i--) {
-      const section = document.getElementById(sections[i]);
-      if (section && section.offsetTop <= scrollPosition) {
-        setActiveSection(sections[i]);
-        break;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
       }
+    } else if (location.pathname.startsWith("/blog")) {
+      setActiveSection("blog");
     }
   }
 
@@ -46,26 +54,53 @@ function NavBar() {
   const handleNavClick = (sectionId, e) => {
     e.preventDefault();
     updateExpanded(false);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+    
+    // If we're not on home page, navigate there first
+    if (location.pathname !== "/") {
+      navigate("/");
+      // Wait for navigation, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - offset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
     }
   };
 
   const handleBrandClick = (e) => {
     e.preventDefault();
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
     updateExpanded(false);
+    navigate("/");
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
+  const handleBlogClick = (e) => {
+    e.preventDefault();
+    updateExpanded(false);
+    navigate("/blog");
   };
 
   return (
@@ -136,9 +171,16 @@ function NavBar() {
                 className={activeSection === "resume" ? "active-nav" : ""}
               >
                 <CgFileDocument style={{ marginBottom: "2px" }} /> Resume
-            <Nav.Item>
+              </Nav.Link>
             </Nav.Item>
 
+            <Nav.Item>
+              <Nav.Link
+                href="/blog"
+                onClick={handleBlogClick}
+                className={activeSection === "blog" ? "active-nav" : ""}
+              >
+                <AiOutlineRead style={{ marginBottom: "2px" }} /> Blog
               </Nav.Link>
             </Nav.Item>
 
