@@ -22,34 +22,34 @@ function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  function scrollHandler() {
-    if (window.scrollY >= 20) {
-      updateNavbar(true);
-    } else {
-      updateNavbar(false);
-    }
-
-    // Update active section based on scroll position (only on home page)
-    if (location.pathname === "/") {
-      const sections = ["home", "about", "projects", "resume"];
-      const scrollPosition = window.scrollY + 100;
-
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = document.getElementById(sections[i]);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
-      }
-    } else if (location.pathname.startsWith("/blog")) {
-      setActiveSection("blog");
-    }
-  }
-
   useEffect(() => {
+    function scrollHandler() {
+      if (window.scrollY >= 20) {
+        updateNavbar(true);
+      } else {
+        updateNavbar(false);
+      }
+
+      // Update active section based on scroll position (only on home page)
+      if (location.pathname === "/") {
+        const sections = ["home", "about", "projects", "resume"];
+        const scrollPosition = window.scrollY + 100;
+
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const section = document.getElementById(sections[i]);
+          if (section && section.offsetTop <= scrollPosition) {
+            setActiveSection(sections[i]);
+            break;
+          }
+        }
+      } else if (location.pathname.startsWith("/blog")) {
+        setActiveSection("blog");
+      }
+    }
+
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
-  }, [location.pathname, scrollHandler]);
+  }, [location.pathname]);
 
   const handleNavClick = (sectionId, e) => {
     e.preventDefault();
