@@ -16,6 +16,13 @@ function BlogPost() {
   const { slug } = useParams();
   const post = blogPosts.find(p => p.slug === slug);
 
+  // Track blog post view - MUST be called before any conditional returns
+  useEffect(() => {
+    if (post) {
+      trackBlogEngagement(post.slug, 'view');
+    }
+  }, [post]);
+
   if (!post) {
     return (
       <Container fluid className="project-section">
@@ -42,13 +49,6 @@ function BlogPost() {
     { name: "Blog", url: "https://abhishek-sagar-sanda.netlify.app/blog" },
     { name: post.title, url: currentUrl }
   ]);
-
-  // Track blog post view
-  useEffect(() => {
-    if (post) {
-      trackBlogEngagement(post.slug, 'view');
-    }
-  }, [post]);
 
   return (
     <>
