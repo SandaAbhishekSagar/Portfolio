@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { blogPosts } from "../content/blog/blogData";
 import { generateWebsiteSchema } from "../utils/seoUtils";
 import NewsletterSignup from "../components/Blog/NewsletterSignup";
-import { AiOutlineCalendar, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineCalendar } from "react-icons/ai";
 import { BsClock } from "react-icons/bs";
 
 function BlogList() {

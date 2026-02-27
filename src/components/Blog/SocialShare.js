@@ -3,8 +3,7 @@ import {
   AiOutlineTwitter, 
   AiOutlineLinkedin, 
   AiFillRedditCircle,
-  AiOutlineLink,
-  AiOutlineFacebook 
+  AiOutlineLink
 } from "react-icons/ai";
 import { trackSocialShare } from "../../utils/analytics";
 

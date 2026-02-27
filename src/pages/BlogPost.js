@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { blogPosts } from "../content/blog/blogData";
@@ -9,7 +9,7 @@ import { generateBlogPostSchema, generateBreadcrumbSchema } from "../utils/seoUt
 import { trackBlogEngagement } from "../utils/analytics";
 import SocialShare from "../components/Blog/SocialShare";
 import NewsletterSignup from "../components/Blog/NewsletterSignup";
-import { AiOutlineArrowLeft, AiOutlineShareAlt, AiOutlineCalendar } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineCalendar } from "react-icons/ai";
 import { BsClock } from "react-icons/bs";
 
 function BlogPost() {
@@ -149,13 +149,13 @@ function BlogPost() {
                 <ReactMarkdown 
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    h1: ({node, ...props}) => <h1 style={{color: "var(--imp-text-color)", marginTop: "40px", marginBottom: "20px"}} {...props} />,
-                    h2: ({node, ...props}) => <h2 style={{color: "var(--imp-text-color)", marginTop: "35px", marginBottom: "15px"}} {...props} />,
-                    h3: ({node, ...props}) => <h3 style={{color: "var(--imp-text-color)", marginTop: "30px", marginBottom: "10px"}} {...props} />,
-                    code: ({node, ...props}) => <code style={{backgroundColor: "rgba(199, 112, 240, 0.1)", padding: "2px 6px", borderRadius: "4px"}} {...props} />,
-                    pre: ({node, ...props}) => <pre style={{backgroundColor: "rgba(0,0,0,0.3)", padding: "20px", borderRadius: "8px", overflow: "auto"}} {...props} />,
-                    blockquote: ({node, ...props}) => <blockquote style={{borderLeft: "4px solid var(--imp-text-color)", paddingLeft: "20px", marginLeft: "0", fontStyle: "italic"}} {...props} />,
-                    a: ({node, ...props}) => <a style={{color: "var(--imp-text-color)"}} {...props} />
+                    h1: ({node, children, ...props}) => <h1 style={{color: "var(--imp-text-color)", marginTop: "40px", marginBottom: "20px"}} {...props}>{children}</h1>,
+                    h2: ({node, children, ...props}) => <h2 style={{color: "var(--imp-text-color)", marginTop: "35px", marginBottom: "15px"}} {...props}>{children}</h2>,
+                    h3: ({node, children, ...props}) => <h3 style={{color: "var(--imp-text-color)", marginTop: "30px", marginBottom: "10px"}} {...props}>{children}</h3>,
+                    code: ({node, children, ...props}) => <code style={{backgroundColor: "rgba(199, 112, 240, 0.1)", padding: "2px 6px", borderRadius: "4px"}} {...props}>{children}</code>,
+                    pre: ({node, children, ...props}) => <pre style={{backgroundColor: "rgba(0,0,0,0.3)", padding: "20px", borderRadius: "8px", overflow: "auto"}} {...props}>{children}</pre>,
+                    blockquote: ({node, children, ...props}) => <blockquote style={{borderLeft: "4px solid var(--imp-text-color)", paddingLeft: "20px", marginLeft: "0", fontStyle: "italic"}} {...props}>{children}</blockquote>,
+                    a: ({node, children, ...props}) => <a style={{color: "var(--imp-text-color)"}} {...props}>{children}</a>
                   }}
                 >
                   {post.content}

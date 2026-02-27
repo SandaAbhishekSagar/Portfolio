@@ -49,7 +49,7 @@ function NavBar() {
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler);
     return () => window.removeEventListener("scroll", scrollHandler);
-  }, []);
+  }, [location.pathname, scrollHandler]);
 
   const handleNavClick = (sectionId, e) => {
     e.preventDefault();
