@@ -29,7 +29,8 @@
     "react-tsparticles": "^1.42.2",
     "remark-gfm": "^4.0.1",
     "typewriter-effect": "^2.18.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "pg": "^8.11.3"
   },
   "overrides": {
     "react": "^18.2.0",

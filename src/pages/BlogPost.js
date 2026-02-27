@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { blogPosts } from "../content/blog/blogData";
+import { blogPosts as localBlogPosts } from "../content/blog/blogData";
 import { generateBlogPostSchema, generateBreadcrumbSchema } from "../utils/seoUtils";
 import { trackBlogEngagement } from "../utils/analytics";
 import SocialShare from "../components/Blog/SocialShare";
@@ -14,16 +14,71 @@ import { BsClock } from "react-icons/bs";
 
 function BlogPost() {
   const { slug } = useParams();
-  const post = blogPosts.find(p => p.slug === slug);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Track blog post view - MUST be called before any conditional returns
+  useEffect(() => {
+    async function loadPost() {
+      try {
+        setLoading(true);
+        setNotFound(false);
+        setError(null);
+
+        const res = await fetch(`/.netlify/functions/blog-post?slug=${encodeURIComponent(slug)}`);
+        if (res.status === 404) {
+          setNotFound(true);
+          // Fallback to local static posts if available
+          const fallback = localBlogPosts.find((p) => p.slug === slug);
+          if (fallback) {
+            setPost(fallback);
+            setNotFound(false);
+          }
+          return;
+        }
+        if (!res.ok) {
+          throw new Error("Failed to load post");
+        }
+        const data = await res.json();
+        setPost(data.post);
+      } catch (err) {
+        console.error("Failed to fetch blog post, falling back to local data", err);
+        const fallback = localBlogPosts.find((p) => p.slug === slug);
+        if (fallback) {
+          setPost(fallback);
+        } else {
+          setError("Unable to load this article.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadPost();
+  }, [slug]);
+
   useEffect(() => {
     if (post) {
       trackBlogEngagement(post.slug, 'view');
     }
   }, [post]);
 
-  if (!post) {
+  if (loading && !post) {
+    return (
+      <Container fluid className="project-section">
+        <Container>
+          <Row style={{ justifyContent: "center", padding: "50px" }}>
+            <Col md={8}>
+              <h1 style={{ color: "white", textAlign: "center" }}>Loading article...</h1>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
+    );
+  }
+
+  if (!post || notFound) {
     return (
       <Container fluid className="project-section">
         <Container>

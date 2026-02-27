@@ -1,15 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { blogPosts } from "../content/blog/blogData";
+import { blogPosts as localBlogPosts } from "../content/blog/blogData";
 import { generateWebsiteSchema } from "../utils/seoUtils";
 import NewsletterSignup from "../components/Blog/NewsletterSignup";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BsClock } from "react-icons/bs";
 
 function BlogList() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const websiteSchema = generateWebsiteSchema();
+
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await fetch("/.netlify/functions/blog-list");
+        if (!res.ok) {
+          throw new Error("Failed to load posts");
+        }
+        const data = await res.json();
+        setPosts(data.posts || []);
+      } catch (err) {
+        console.error("Failed to fetch blog posts, falling back to local data", err);
+        setError("Unable to load latest posts. Showing static posts instead.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadPosts();
+  }, []);
+
+  const displayPosts = posts.length ? posts : localBlogPosts;
   
   return (
     <>
@@ -50,7 +78,17 @@ function BlogList() {
           </Row>
           
           <Row style={{ justifyContent: "center", paddingTop: "30px" }}>
-            {blogPosts.map((post, index) => (
+            {loading && displayPosts.length === 0 && (
+              <Col md={8} style={{ color: "white", textAlign: "center", marginBottom: "20px" }}>
+                Loading latest articles...
+              </Col>
+            )}
+            {error && (
+              <Col md={8} style={{ color: "rgba(255,255,255,0.7)", textAlign: "center", marginBottom: "10px" }}>
+                {error}
+              </Col>
+            )}
+            {displayPosts.map((post, index) => (
               <Col md={6} lg={4} className="project-card" key={index}>
                 <Card className="project-card-view blog-card">
                   {post.featuredImage && (
