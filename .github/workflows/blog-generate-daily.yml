@@ -1,0 +1,26 @@
+name: Generate Daily Blog Posts
+
+on:
+  schedule:
+    # Run every day at 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+    # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call blog-generate-daily function
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST "https://abhishek-sagar-sanda.netlify.app/.netlify/functions/blog-generate-daily")
+          http_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+          echo "Response: $body"
+          echo "HTTP Status: $http_code"
+          if [ "$http_code" -ge 200 ] && [ "$http_code" -lt 300 ]; then
+            echo "✅ Blog generation completed successfully"
+          else
+            echo "❌ Blog generation returned HTTP $http_code"
+            exit 1
+          fi
