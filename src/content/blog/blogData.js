@@ -1,8 +1,8 @@
 // High-value AI/LLM blog content designed to drive traffic and establish thought leadership
-import ragArchitectureImg from "../../Assets/blog/rag-architecture.png";
-import llmEvaluationImg from "../../Assets/blog/llm-evaluation.png";
-import aiAgentsComparisonImg from "../../Assets/blog/ai-agents-comparison.png";
-import vectorDbOptimizationImg from "../../Assets/blog/vector-db-optimization.png";
+import ragArchitectureImg from "../../Assets/blog/rag-architecture.svg";
+import llmEvaluationImg from "../../Assets/blog/llm-evaluation.svg";
+import aiAgentsComparisonImg from "../../Assets/blog/ai-agents-comparison.svg";
+import vectorDbOptimizationImg from "../../Assets/blog/vector-db-optimization.svg";
 
 export const blogPosts = [
   {
