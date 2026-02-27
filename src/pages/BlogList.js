@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { blogPosts } from "../content/blog/blogData";
 import { generateWebsiteSchema } from "../utils/seoUtils";
 import NewsletterSignup from "../components/Blog/NewsletterSignup";
-import { AiOutlineClock, AiOutlineCalendar, AiOutlineEye } from "react-icons/ai";
+import { AiOutlineCalendar, AiOutlineEye } from "react-icons/ai";
+import { BsClock } from "react-icons/bs";
 
 function BlogList() {
   const websiteSchema = generateWebsiteSchema();
@@ -71,7 +72,7 @@ function BlogList() {
                         {post.date}
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                        <AiOutlineClock size={14} />
+                        <BsClock size={14} />
                         {post.readTime}
                       </div>
                     </div>

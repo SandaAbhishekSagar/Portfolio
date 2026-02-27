@@ -9,7 +9,8 @@ import { generateBlogPostSchema, generateBreadcrumbSchema } from "../utils/seoUt
 import { trackBlogEngagement } from "../utils/analytics";
 import SocialShare from "../components/Blog/SocialShare";
 import NewsletterSignup from "../components/Blog/NewsletterSignup";
-import { AiOutlineArrowLeft, AiOutlineShareAlt, AiOutlineClock, AiOutlineCalendar } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineShareAlt, AiOutlineCalendar } from "react-icons/ai";
+import { BsClock } from "react-icons/bs";
 
 function BlogPost() {
   const { slug } = useParams();
@@ -98,7 +99,7 @@ function BlogPost() {
                       <strong>Published:</strong> {post.date}
                     </span>
                     <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                      <AiOutlineClock />
+                      <BsClock />
                       <strong>Read time:</strong> {post.readTime}
                     </span>
                   </div>
