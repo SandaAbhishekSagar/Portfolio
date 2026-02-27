@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { blogPosts as localBlogPosts } from "../content/blog/blogData";
+import { getFeaturedImageUrl } from "../utils/blogImageUtils";
 import { generateBlogPostSchema, generateBreadcrumbSchema } from "../utils/seoUtils";
 import { trackBlogEngagement } from "../utils/analytics";
 import SocialShare from "../components/Blog/SocialShare";
@@ -136,14 +137,14 @@ function BlogPost() {
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={`https://abhishek-sagar-sanda.netlify.app/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
-        {post.featuredImage && (
-          <meta property="og:image" content={post.featuredImage} />
+        {getFeaturedImageUrl(post) && (
+          <meta property="og:image" content={getFeaturedImageUrl(post)} />
         )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
-        {post.featuredImage && (
-          <meta name="twitter:image" content={post.featuredImage} />
+        {getFeaturedImageUrl(post) && (
+          <meta name="twitter:image" content={getFeaturedImageUrl(post)} />
         )}
         <link rel="canonical" href={`https://abhishek-sagar-sanda.netlify.app/blog/${post.slug}`} />
         <script type="application/ld+json">
@@ -200,9 +201,9 @@ function BlogPost() {
                   ))}
                 </div>
 
-                {post.featuredImage && (
+                {getFeaturedImageUrl(post) && (
                   <img 
-                    src={post.featuredImage} 
+                    src={getFeaturedImageUrl(post)} 
                     alt={post.title}
                     style={{ 
                       width: "100%", 

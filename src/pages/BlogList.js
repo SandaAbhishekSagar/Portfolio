@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { blogPosts as localBlogPosts } from "../content/blog/blogData";
+import { getFeaturedImageUrl } from "../utils/blogImageUtils";
 import { generateWebsiteSchema } from "../utils/seoUtils";
 import NewsletterSignup from "../components/Blog/NewsletterSignup";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -91,10 +92,10 @@ function BlogList() {
             {displayPosts.map((post, index) => (
               <Col md={6} lg={4} className="project-card" key={index}>
                 <Card className="project-card-view blog-card">
-                  {post.featuredImage && (
+                  {getFeaturedImageUrl(post) && (
                     <Card.Img 
                       variant="top" 
-                      src={post.featuredImage} 
+                      src={getFeaturedImageUrl(post)} 
                       alt={post.title}
                       className="blog-img"
                     />
