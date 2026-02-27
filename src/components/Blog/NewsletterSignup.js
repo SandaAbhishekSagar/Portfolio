@@ -10,7 +10,7 @@ function NewsletterSignup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!email || !email.includes("@")) {
       setStatus("error");
       setMessage("Please enter a valid email address");
@@ -21,25 +21,33 @@ function NewsletterSignup() {
     setMessage("");
 
     try {
-      // In a real implementation, you'd integrate with your newsletter service
-      // For now, we'll simulate the API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulate success
+      const response = await fetch("/.netlify/functions/newsletter-signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, source: "blog" }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to subscribe");
+      }
+
       setStatus("success");
-      setMessage("Thanks for subscribing! You'll receive AI insights and tutorials directly in your inbox.");
-      
+      setMessage(
+        "Thanks for subscribing! You'll receive AI insights and tutorials directly in your inbox."
+      );
+
       // Track newsletter signup
-      trackNewsletterSignup('blog');
-      
+      trackNewsletterSignup("blog");
+
       setEmail("");
-      
+
       // Reset after 5 seconds
       setTimeout(() => {
         setStatus("idle");
         setMessage("");
       }, 5000);
-      
     } catch (error) {
       setStatus("error");
       setMessage("Oops! Something went wrong. Please try again later.");
