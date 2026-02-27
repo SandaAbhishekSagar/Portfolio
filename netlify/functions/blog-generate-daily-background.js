@@ -55,7 +55,6 @@ Use today's date for the "date" field.
     throw new Error("OpenAI returned no content");
   }
 
-  // Extract JSON block
   const jsonStart = content.indexOf("{");
   const jsonEnd = content.lastIndexOf("}");
   const jsonString =
@@ -85,23 +84,14 @@ async function fetchImageUrlFromPage(url) {
     }
     const html = await res.text();
 
-    // Try Open Graph image
     const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
-    if (ogMatch && ogMatch[1]) {
-      return ogMatch[1];
-    }
+    if (ogMatch && ogMatch[1]) return ogMatch[1];
 
-    // Try Twitter image
     const twMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
-    if (twMatch && twMatch[1]) {
-      return twMatch[1];
-    }
+    if (twMatch && twMatch[1]) return twMatch[1];
 
-    // Fallback: first <img> src that looks like a real image URL
     const imgMatch = html.match(/<img[^>]+src=["']([^"']+\.(?:png|jpe?g|webp|gif))["'][^>]*>/i);
-    if (imgMatch && imgMatch[1]) {
-      return imgMatch[1];
-    }
+    if (imgMatch && imgMatch[1]) return imgMatch[1];
 
     return null;
   } catch (e) {
@@ -110,6 +100,49 @@ async function fetchImageUrlFromPage(url) {
   }
 }
 
+async function runGeneration() {
+  const pool = getPool();
+
+  const { rows: existingRows } = await pool.query(
+    `SELECT COUNT(*)::int AS count FROM blog_posts
+     WHERE source = 'auto_ai' AND published_at::date = CURRENT_DATE`
+  );
+
+  const remaining = Math.max(0, 2 - (existingRows[0]?.count || 0));
+  if (remaining === 0) {
+    return { done: true, message: "Already generated 2 posts for today" };
+  }
+
+  const created = [];
+  for (let i = 0; i < remaining; i++) {
+    const draft = await generateBlogTopicAndContent();
+    const imageUrl = await fetchImageUrlFromPage(draft.sourceUrl);
+
+    const insertResult = await pool.query(
+      `INSERT INTO blog_posts
+         (slug, title, excerpt, date, read_time, tags, featured_image, content, source, published_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'auto_ai', NOW())
+       ON CONFLICT (slug) DO NOTHING RETURNING slug`,
+      [
+        draft.slug,
+        draft.title,
+        draft.excerpt,
+        draft.date,
+        draft.readTime,
+        draft.tags || [],
+        imageUrl,
+        draft.content,
+      ]
+    );
+
+    if (insertResult.rows.length > 0) created.push(draft.slug);
+    else console.warn("Skipped insert due to slug conflict", draft.slug);
+  }
+
+  return { created };
+}
+
+// Background function: returns 202 immediately, runs up to 15 min in background
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
     return {
@@ -119,77 +152,16 @@ exports.handler = async function (event) {
     };
   }
 
-  try {
-    const pool = getPool();
+  runGeneration()
+    .then((result) => {
+      if (result.done) console.log("blog-generate-daily:", result.message);
+      else console.log("blog-generate-daily: created", result.created);
+    })
+    .catch((err) => console.error("blog-generate-daily error", err));
 
-    // Check how many auto-generated posts exist for today
-    const { rows: existingRows } = await pool.query(
-      `
-      SELECT COUNT(*)::int AS count
-      FROM blog_posts
-      WHERE source = 'auto_ai'
-        AND published_at::date = CURRENT_DATE
-    `
-    );
-
-    const existingCount = existingRows[0]?.count || 0;
-    const remaining = Math.max(0, 2 - existingCount);
-
-    if (remaining === 0) {
-      return {
-        statusCode: 200,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: "Already generated 2 posts for today" }),
-      };
-    }
-
-    const created = [];
-
-    for (let i = 0; i < remaining; i++) {
-      const draft = await generateBlogTopicAndContent();
-      const imageUrl = await fetchImageUrlFromPage(draft.sourceUrl);
-
-      const insertResult = await pool.query(
-        `
-        INSERT INTO blog_posts
-          (slug, title, excerpt, date, read_time, tags, featured_image, content, source, published_at)
-        VALUES
-          ($1,   $2,    $3,     $4,   $5,       $6,   $7,             $8,      'auto_ai', NOW())
-        ON CONFLICT (slug) DO NOTHING
-        RETURNING slug
-      `,
-        [
-          draft.slug,
-          draft.title,
-          draft.excerpt,
-          draft.date,
-          draft.readTime,
-          draft.tags || [],
-          imageUrl,
-          draft.content,
-        ]
-      );
-
-      if (insertResult.rows.length > 0) {
-        created.push(draft.slug);
-      } else {
-        // Slug conflict; skip
-        console.warn("Skipped insert due to slug conflict", draft.slug);
-      }
-    }
-
-    return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ created }),
-    };
-  } catch (err) {
-    console.error("blog-generate-daily error", err);
-    return {
-      statusCode: 500,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Failed to generate daily blog posts" }),
-    };
-  }
+  return {
+    statusCode: 202,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: "Blog generation started in background" }),
+  };
 };
-
