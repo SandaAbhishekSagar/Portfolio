@@ -1,29 +1,125 @@
 const { getPool } = require("./db");
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 
-async function generateBlogTopicAndContent() {
+const SEARCH_QUERIES = [
+  "latest AI LLM RAG developments 2026",
+  "AI agents frameworks multi-agent systems 2026",
+];
+
+const PLACEHOLDER_IMAGES = [
+  "/blog/rag-architecture.svg",
+  "/blog/llm-evaluation.svg",
+  "/blog/ai-agents-comparison.svg",
+  "/blog/vector-db-optimization.svg",
+];
+
+function getTodayDateString() {
+  const d = new Date();
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
+  ];
+  return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+}
+
+async function fetchWebSearchResults(query, index) {
+  if (!TAVILY_API_KEY) return null;
+  try {
+    const res = await fetch("https://api.tavily.com/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${TAVILY_API_KEY}`,
+      },
+      body: JSON.stringify({
+        query,
+        max_results: 8,
+        topic: "general",
+        time_range: "week",
+        search_depth: "basic",
+      }),
+    });
+    if (!res.ok) {
+      console.error("Tavily search error", res.status, await res.text());
+      return null;
+    }
+    const data = await res.json();
+    return data.results || [];
+  } catch (e) {
+    console.error("Web search error", e);
+    return null;
+  }
+}
+
+function formatSearchContext(results) {
+  if (!results || results.length === 0) return "";
+  return results
+    .slice(0, 6)
+    .map(
+      (r, i) =>
+        `[Source ${i + 1}] ${r.title || ""}\nURL: ${r.url || ""}\n${r.content || ""}`
+    )
+    .join("\n\n---\n\n");
+}
+
+async function generateBlogTopicAndContent(searchContext, searchQuery, index) {
   if (!OPENAI_API_KEY) {
     throw new Error("OPENAI_API_KEY environment variable is not set");
   }
 
-  const prompt = `
+  const todayStr = getTodayDateString();
+  const hasSearch = searchContext && searchContext.trim().length > 0;
+
+  const prompt = hasSearch
+    ? `
 You are an expert AI engineer and technical writer.
-Generate ONE blog post about AI/LLMs/RAG/agents for practicing engineers.
+Using the following RECENT WEB SEARCH RESULTS, draft ONE blog post for practicing engineers.
+Search query used: "${searchQuery || ""}"
+TODAY'S DATE IS: ${todayStr}. Use this EXACT date for the "date" field.
+
+WEB SEARCH RESULTS:
+${searchContext}
+
+INSTRUCTIONS:
+- Base the blog on the search results above. Use facts, insights, and recent developments from these sources.
+- Cite or reference the sources where appropriate.
+- Write in an engaging, expert tone. 1200-2000 words.
+- Pick the first result's URL as "sourceUrl" for image scraping (if it has a valid URL).
+- The "date" field MUST be exactly: "${todayStr}".
 
 Return STRICTLY valid JSON with this shape:
 {
   "slug": "url-friendly-slug",
   "title": "Readable title",
   "excerpt": "1-2 sentence summary.",
-  "date": "Month DD, YYYY",
+  "date": "${todayStr}",
+  "readTime": "NN min read",
+  "tags": ["Tag1", "Tag2"],
+  "sourceUrl": "https://first-source-url-from-results-above",
+  "content": "# Markdown title... (full article)"
+}
+Do NOT add any explanation outside the JSON.
+`
+    : `
+You are an expert AI engineer and technical writer.
+Generate ONE blog post about AI/LLMs/RAG/agents for practicing engineers.
+TODAY'S DATE IS: ${todayStr}. Use this EXACT date for the "date" field.
+
+Return STRICTLY valid JSON with this shape:
+{
+  "slug": "url-friendly-slug",
+  "title": "Readable title",
+  "excerpt": "1-2 sentence summary.",
+  "date": "${todayStr}",
   "readTime": "NN min read",
   "tags": ["Tag1", "Tag2"],
   "sourceUrl": "https://example.com/authoritative-article-with-good-hero-image",
   "content": "# Markdown title... (full article, 1200-2000 words)"
 }
 Do NOT add any explanation outside the JSON.
-Use today's date for the "date" field.
+The "date" field MUST be exactly: "${todayStr}".
 `;
 
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -115,8 +211,16 @@ async function runGeneration() {
 
   const created = [];
   for (let i = 0; i < remaining; i++) {
-    const draft = await generateBlogTopicAndContent();
-    const imageUrl = await fetchImageUrlFromPage(draft.sourceUrl);
+    const query = SEARCH_QUERIES[i % SEARCH_QUERIES.length];
+    const searchResults = await fetchWebSearchResults(query, i);
+    const searchContext = formatSearchContext(searchResults);
+    const draft = await generateBlogTopicAndContent(searchContext, query, i);
+    let imageUrl = await fetchImageUrlFromPage(draft.sourceUrl);
+    if (!imageUrl) {
+      imageUrl = PLACEHOLDER_IMAGES[i % PLACEHOLDER_IMAGES.length];
+      console.log("Using placeholder image for", draft.slug, ":", imageUrl);
+    }
+    const dateStr = getTodayDateString();
 
     const insertResult = await pool.query(
       `INSERT INTO blog_posts
@@ -127,7 +231,7 @@ async function runGeneration() {
         draft.slug,
         draft.title,
         draft.excerpt,
-        draft.date,
+        dateStr,
         draft.readTime,
         draft.tags || [],
         imageUrl,
