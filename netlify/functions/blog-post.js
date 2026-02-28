@@ -31,7 +31,6 @@ exports.handler = async function (event) {
         date,
         read_time AS "readTime",
         tags,
-        featured_image AS "featuredImage",
         content
       FROM blog_posts
       WHERE slug = $1

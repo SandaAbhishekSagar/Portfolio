@@ -35,8 +35,7 @@ exports.handler = async function (event) {
         excerpt,
         date,
         read_time AS "readTime",
-        tags,
-        featured_image AS "featuredImage"
+        tags
       FROM blog_posts
       ORDER BY published_at DESC
       LIMIT 30

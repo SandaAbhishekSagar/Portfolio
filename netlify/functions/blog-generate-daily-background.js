@@ -185,8 +185,8 @@ async function runGeneration() {
 
     const insertResult = await pool.query(
       `INSERT INTO blog_posts
-         (slug, title, excerpt, date, read_time, tags, featured_image, content, source, published_at)
-       VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, 'auto_ai', NOW())
+         (slug, title, excerpt, date, read_time, tags, content, source, published_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, 'auto_ai', NOW())
        ON CONFLICT (slug) DO NOTHING RETURNING slug`,
       [
         draft.slug,
