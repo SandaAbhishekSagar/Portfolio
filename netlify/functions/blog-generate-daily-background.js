@@ -246,7 +246,7 @@ async function runGeneration() {
   return { created };
 }
 
-// Background function: returns 202 immediately, runs up to 15 min in background
+// Background function: runs synchronously (15 min timeout) so work reliably completes
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
     return {
@@ -256,16 +256,28 @@ exports.handler = async function (event) {
     };
   }
 
-  runGeneration()
-    .then((result) => {
-      if (result.done) console.log("blog-generate-daily:", result.message);
-      else console.log("blog-generate-daily: created", result.created);
-    })
-    .catch((err) => console.error("blog-generate-daily error", err));
-
-  return {
-    statusCode: 202,
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: "Blog generation started in background" }),
-  };
+  try {
+    const result = await runGeneration();
+    if (result.done) {
+      console.log("blog-generate-daily:", result.message);
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: result.message }),
+      };
+    }
+    console.log("blog-generate-daily: created", result.created);
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ created: result.created }),
+    };
+  } catch (err) {
+    console.error("blog-generate-daily error", err);
+    return {
+      statusCode: 500,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Failed to generate blog posts" }),
+    };
+  }
 };
