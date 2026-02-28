@@ -29,6 +29,7 @@ function BlogList() {
       } catch (err) {
         console.error("Failed to fetch blog posts, falling back to local data", err);
         setError("Unable to load latest posts. Showing static posts instead.");
+        setPosts([]);
       } finally {
         setLoading(false);
       }
@@ -37,7 +38,15 @@ function BlogList() {
     loadPosts();
   }, []);
 
-  const displayPosts = posts.length ? posts : localBlogPosts;
+  // Merge API posts (from DB, includes cron-created) with local static posts.
+  // Ensures cron-created posts are always shown even when API returns partial data.
+  const apiSlugs = new Set((posts || []).map((p) => p.slug));
+  const localOnly = localBlogPosts.filter((p) => !apiSlugs.has(p.slug));
+  const merged = [...(posts || []), ...localOnly];
+  const parseDate = (d) => (d ? new Date(d) : new Date(0));
+  const displayPosts = merged.length
+    ? [...merged].sort((a, b) => parseDate(b.date) - parseDate(a.date))
+    : localBlogPosts;
   
   return (
     <>
