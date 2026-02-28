@@ -8,13 +8,6 @@ const SEARCH_QUERIES = [
   "AI agents frameworks multi-agent systems 2026",
 ];
 
-const PLACEHOLDER_IMAGES = [
-  "/blog/rag-architecture.svg",
-  "/blog/llm-evaluation.svg",
-  "/blog/ai-agents-comparison.svg",
-  "/blog/vector-db-optimization.svg",
-];
-
 function getTodayDateString() {
   const d = new Date();
   const months = [
@@ -169,33 +162,6 @@ The "date" field MUST be exactly: "${todayStr}".
   return parsed;
 }
 
-async function fetchImageUrlFromPage(url) {
-  if (!url) return null;
-
-  try {
-    const res = await fetch(url, { method: "GET" });
-    if (!res.ok) {
-      console.error("Failed to fetch source page", url, res.status);
-      return null;
-    }
-    const html = await res.text();
-
-    const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
-    if (ogMatch && ogMatch[1]) return ogMatch[1];
-
-    const twMatch = html.match(/<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i);
-    if (twMatch && twMatch[1]) return twMatch[1];
-
-    const imgMatch = html.match(/<img[^>]+src=["']([^"']+\.(?:png|jpe?g|webp|gif))["'][^>]*>/i);
-    if (imgMatch && imgMatch[1]) return imgMatch[1];
-
-    return null;
-  } catch (e) {
-    console.error("Error scraping image from page", url, e);
-    return null;
-  }
-}
-
 async function runGeneration() {
   const pool = getPool();
 
@@ -215,17 +181,12 @@ async function runGeneration() {
     const searchResults = await fetchWebSearchResults(query, i);
     const searchContext = formatSearchContext(searchResults);
     const draft = await generateBlogTopicAndContent(searchContext, query, i);
-    let imageUrl = await fetchImageUrlFromPage(draft.sourceUrl);
-    if (!imageUrl) {
-      imageUrl = PLACEHOLDER_IMAGES[i % PLACEHOLDER_IMAGES.length];
-      console.log("Using placeholder image for", draft.slug, ":", imageUrl);
-    }
     const dateStr = getTodayDateString();
 
     const insertResult = await pool.query(
       `INSERT INTO blog_posts
          (slug, title, excerpt, date, read_time, tags, featured_image, content, source, published_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'auto_ai', NOW())
+       VALUES ($1, $2, $3, $4, $5, $6, NULL, $7, 'auto_ai', NOW())
        ON CONFLICT (slug) DO NOTHING RETURNING slug`,
       [
         draft.slug,
@@ -234,7 +195,6 @@ async function runGeneration() {
         dateStr,
         draft.readTime,
         draft.tags || [],
-        imageUrl,
         draft.content,
       ]
     );
