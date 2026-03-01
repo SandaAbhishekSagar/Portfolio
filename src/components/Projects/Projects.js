@@ -13,6 +13,7 @@ import weapon from "../../Assets/Projects/Weapondetection.png";
 import linguavision from "../../Assets/Projects/Output_1.png";
 import wyckoff from "../../Assets/Projects/wyckoff.jpeg"
 import translator from "../../Assets/Projects/translator.jpeg"
+import northeastern from "../../Assets/Projects/northeastern-chatbot.png"
 
 
 function Projects() {
@@ -56,12 +57,22 @@ Optimized API performance to reduce average response latency by 40%, resulting i
         <Col md={4} className="project-card">
             <AnimationWrapper direction="up" delay={0.2}>
               <ProjectCard
-              imgPath={chatify}
+              imgPath={northeastern}
               isBlog={false}
-              title="RAG-Powered Northeastern University Chatbot"
-              description="Built an end-to-end AI-powered chatbot system for Northeastern University using Python, FastAPI, Scrapy, and ChromaDB, enabling real-time natural language search and Q&A over 80,000+ scraped university web pages. The system provides instant, accurate answers to student queries by leveraging advanced semantic search and retrieval-augmented generation (RAG) techniques.
+              title="Northeastern University Assistant v2.0 🚀"
+              description="**Live Demo Available!** An advanced AI-powered university assistant featuring RAG (Retrieval-Augmented Generation) with 80,000+ scraped web pages, built using Python, FastAPI, Scrapy, and ChromaDB for real-time natural language Q&A.
 
-Engineered a robust data pipeline for large-scale web scraping, semantic document indexing, and automated data management, ensuring production readiness. The modern web frontend delivers an intuitive user experience, making vast university resources easily accessible through conversational AI. Deployed and accessible for students to navigate complex university information efficiently."
+**Key Features from Demo:**
+• 🎓 Academic Programs & Admissions Guidance
+• 💼 Co-op & Career Opportunities Support  
+• 🏠 Campus Life & Housing Information
+• 💰 Financial Aid & Scholarships Help
+• 🌍 International Student Services
+• 📊 Real-time System Status & Analytics
+• 💬 Interactive Chat with Popular Questions
+• 📝 User Feedback & Rating System
+
+**Technical Implementation:** Engineered robust data pipeline for semantic document indexing, automated data management, and production-ready deployment. The modern glassmorphism UI delivers intuitive conversational AI experience, making vast university resources instantly accessible to students, faculty, and prospective applicants."
               descriptionStyle={scrollableCardStyle}
               ghLink="https://github.com/SandaAbhishekSagar"
               demoLink="https://northeastern-university-chatbot.vercel.app/"
