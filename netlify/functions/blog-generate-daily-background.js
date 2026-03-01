@@ -61,6 +61,9 @@ async function generateBlogTopicAndContent(searchContext, searchQuery, index) {
   if (!OPENAI_API_KEY) {
     throw new Error("OPENAI_API_KEY environment variable is not set");
   }
+  
+  console.log(`Generating blog post ${index + 1} with query: "${searchQuery}"`);
+  console.log(`Search context length: ${searchContext ? searchContext.length : 0} characters`);
 
   const todayStr = getTodayDateString();
   const hasSearch = searchContext && searchContext.trim().length > 0;
@@ -81,6 +84,7 @@ INSTRUCTIONS:
 - Write in an engaging, expert tone. 1200-2000 words.
 - Pick the first result's URL as "sourceUrl" for image scraping (if it has a valid URL).
 - The "date" field MUST be exactly: "${todayStr}".
+- IMPORTANT: In the "content" field, escape all quotes with \\" and avoid special characters that break JSON.
 
 Return STRICTLY valid JSON with this shape:
 {
@@ -100,6 +104,8 @@ You are an expert AI engineer and technical writer.
 Generate ONE blog post about AI/LLMs/RAG/agents for practicing engineers.
 TODAY'S DATE IS: ${todayStr}. Use this EXACT date for the "date" field.
 
+IMPORTANT: In the "content" field, escape all quotes with \\" and avoid special characters that break JSON.
+
 Return STRICTLY valid JSON with this shape:
 {
   "slug": "url-friendly-slug",
@@ -113,29 +119,61 @@ Return STRICTLY valid JSON with this shape:
 }
 Do NOT add any explanation outside the JSON.
 The "date" field MUST be exactly: "${todayStr}".
-`;
+CRITICAL: Ensure the JSON is valid - escape all quotes in content with \\" and use proper JSON formatting.`;
 
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
+  let response;
+  let attempts = 0;
+  const maxAttempts = 3;
+  
+  while (attempts < maxAttempts) {
+    try {
+      console.log(`OpenAI API attempt ${attempts + 1}/${maxAttempts}`);
+      
+      response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
         },
-      ],
-      temperature: 0.8,
-    }),
-  });
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: [
+            {
+              role: "user",
+              content: prompt,
+            },
+          ],
+          temperature: 0.7, // Slightly lower for more consistent JSON
+          max_tokens: 4000,  // Ensure enough tokens for full response
+        }),
+      });
 
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`OpenAI error: ${response.status} ${text}`);
+      if (response.ok) {
+        console.log(`OpenAI API successful on attempt ${attempts + 1}`);
+        break;
+      } else {
+        const errorText = await response.text();
+        console.error(`OpenAI API error (attempt ${attempts + 1}): ${response.status} ${errorText}`);
+        
+        if (response.status === 429) {
+          // Rate limit, wait before retry
+          await new Promise(resolve => setTimeout(resolve, (attempts + 1) * 2000));
+        }
+      }
+    } catch (networkError) {
+      console.error(`Network error on attempt ${attempts + 1}:`, networkError);
+    }
+    
+    attempts++;
+    if (attempts < maxAttempts) {
+      console.log(`Waiting before retry...`);
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
+    }
+  }
+
+  if (!response || !response.ok) {
+    const text = response ? await response.text() : 'No response';
+    throw new Error(`OpenAI error after ${maxAttempts} attempts: ${response?.status || 'Network error'} ${text}`);
   }
 
   const data = await response.json();
@@ -146,7 +184,7 @@ The "date" field MUST be exactly: "${todayStr}".
 
   const jsonStart = content.indexOf("{");
   const jsonEnd = content.lastIndexOf("}");
-  const jsonString =
+  let jsonString =
     jsonStart !== -1 && jsonEnd !== -1
       ? content.slice(jsonStart, jsonEnd + 1)
       : content;
@@ -155,8 +193,40 @@ The "date" field MUST be exactly: "${todayStr}".
   try {
     parsed = JSON.parse(jsonString);
   } catch (e) {
-    console.error("Failed to parse OpenAI JSON", content);
-    throw e;
+    console.error("Failed to parse OpenAI JSON, attempting to fix...");
+    console.error("Original content length:", content.length);
+    console.error("JSON string length:", jsonString.length);
+    
+    // Attempt to fix common JSON issues
+    try {
+      // Fix unescaped quotes in content field
+      jsonString = jsonString.replace(
+        /"content":\s*"([^"]*(?:\\.[^"]*)*)"([^}]*)/g,
+        (match, contentPart, rest) => {
+          // Escape internal quotes in the content
+          const escapedContent = contentPart.replace(/(?<!\\)"/g, '\\"');
+          return `"content": "${escapedContent}"${rest}`;
+        }
+      );
+      
+      parsed = JSON.parse(jsonString);
+      console.log("Successfully fixed and parsed JSON");
+    } catch (fixAttemptError) {
+      console.error("Failed to fix JSON, creating fallback post");
+      
+      // Create a fallback post if JSON parsing completely fails
+      const fallbackSlug = `ai-insights-${Date.now()}`;
+      parsed = {
+        slug: fallbackSlug,
+        title: `AI Engineering Insights - ${getTodayDateString()}`,
+        excerpt: "Latest developments in AI, LLM, and engineering practices from recent research and industry updates.",
+        date: getTodayDateString(),
+        readTime: "12 min read",
+        tags: ["AI", "LLM", "Engineering", "Technology"],
+        sourceUrl: "https://example.com",
+        content: `# AI Engineering Insights - ${getTodayDateString()}\n\nThis post was automatically generated with the latest AI and engineering insights.\n\n## Key Developments\n\n- Advanced AI model capabilities\n- New engineering frameworks\n- Industry best practices\n- Future technology trends\n\nStay tuned for more detailed analysis and technical deep-dives.`
+      };
+    }
   }
 
   return parsed;
@@ -183,24 +253,47 @@ async function runGeneration() {
     const draft = await generateBlogTopicAndContent(searchContext, query, i);
     const dateStr = getTodayDateString();
 
-    const insertResult = await pool.query(
-      `INSERT INTO blog_posts
-         (slug, title, excerpt, date, read_time, tags, content, source, published_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, 'auto_ai', NOW())
-       ON CONFLICT (slug) DO NOTHING RETURNING slug`,
-      [
-        draft.slug,
-        draft.title,
-        draft.excerpt,
-        dateStr,
-        draft.readTime,
-        draft.tags || [],
-        draft.content,
-      ]
-    );
-
-    if (insertResult.rows.length > 0) created.push(draft.slug);
-    else console.warn("Skipped insert due to slug conflict", draft.slug);
+    // Ensure unique slug by adding timestamp if needed
+    let finalSlug = draft.slug;
+    let attempt = 0;
+    let insertResult;
+    
+    while (attempt < 3) {
+      try {
+        insertResult = await pool.query(
+          `INSERT INTO blog_posts
+             (slug, title, excerpt, date, read_time, tags, content, source, published_at)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, 'auto_ai', NOW())
+           RETURNING slug`,
+          [
+            finalSlug,
+            draft.title,
+            draft.excerpt,
+            dateStr,
+            draft.readTime,
+            draft.tags || [],
+            draft.content,
+          ]
+        );
+        
+        if (insertResult.rows.length > 0) {
+          created.push(finalSlug);
+          break;
+        }
+      } catch (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          attempt++;
+          finalSlug = `${draft.slug}-${Date.now()}-${attempt}`;
+          console.warn(`Slug conflict, trying with: ${finalSlug}`);
+        } else {
+          throw error;
+        }
+      }
+    }
+    
+    if (attempt >= 3) {
+      console.error("Failed to insert after 3 attempts due to slug conflicts");
+    }
   }
 
   return { created };
