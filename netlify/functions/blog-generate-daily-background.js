@@ -3,9 +3,36 @@ const { getPool } = require("./db");
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 
-const SEARCH_QUERIES = [
-  "latest AI LLM RAG developments 2026",
-  "AI agents frameworks multi-agent systems 2026",
+// Diverse search topics so each run gets different content
+const SEARCH_TOPICS = [
+  "latest RAG retrieval augmented generation 2026",
+  "AI agents multi-agent systems frameworks 2026",
+  "LLM fine-tuning open source models 2026",
+  "vector databases embeddings similarity search",
+  "prompt engineering techniques LLM 2026",
+  "MLOps AI model deployment production",
+  "computer vision multimodal AI 2026",
+  "LLM evaluation benchmarking metrics",
+  "open source vs closed LLMs comparison",
+  "AI code generation developer tools",
+  "retrieval augmented generation best practices",
+  "AI agents autonomous systems research",
+  "transformer architecture efficiency optimization",
+  "AI safety alignment responsible AI",
+  "small language models edge deployment",
+  "AI research breakthroughs 2026",
+];
+
+// Content angles for variety: different formats and hooks each time
+const CONTENT_ANGLES = [
+  "Write a practical how-to with step-by-step takeaways. Use a specific, surprising title (not 'Complete Guide').",
+  "Write an opinion or trend piece with a bold take. Hook with a contrarian or provocative angle.",
+  "Write a deep technical dive on one narrow topic. Title should sound like a conference talk or deep-dive.",
+  "Write a listicle or roundup (e.g. '5 X that Y'). Make each point actionable and distinct.",
+  "Write a case study or 'lessons learned' style post. Use a concrete scenario or story hook.",
+  "Write a tutorial with code or config snippets. Title should promise a clear outcome.",
+  "Write a comparison or 'X vs Y' piece. Be opinionated and give a clear recommendation.",
+  "Write a forward-looking piece on where the field is heading. Use a question or prediction as the hook.",
 ];
 
 function getTodayDateString() {
@@ -57,69 +84,101 @@ function formatSearchContext(results) {
     .join("\n\n---\n\n");
 }
 
-async function generateBlogTopicAndContent(searchContext, searchQuery, index) {
+// Pick a topic and content angle that varies by date and run (morning vs evening)
+function pickTopicAndAngle(runIndex) {
+  const d = new Date();
+  const daySeed = d.getFullYear() * 10000 + d.getMonth() * 100 + d.getDate();
+  const hourSeed = d.getHours(); // 9 AM vs 6 PM run
+  const topicIndex = (daySeed + hourSeed + runIndex * 7) % SEARCH_TOPICS.length;
+  const angleIndex = (daySeed + hourSeed * 2 + runIndex * 11) % CONTENT_ANGLES.length;
+  return {
+    searchQuery: SEARCH_TOPICS[topicIndex],
+    contentAngle: CONTENT_ANGLES[angleIndex],
+  };
+}
+
+async function generateBlogTopicAndContent(searchContext, searchQuery, contentAngle, index, recentTitles = []) {
   if (!OPENAI_API_KEY) {
     throw new Error("OPENAI_API_KEY environment variable is not set");
   }
   
   console.log(`Generating blog post ${index + 1} with query: "${searchQuery}"`);
+  console.log(`Angle: ${contentAngle}`);
   console.log(`Search context length: ${searchContext ? searchContext.length : 0} characters`);
 
   const todayStr = getTodayDateString();
   const hasSearch = searchContext && searchContext.trim().length > 0;
+  const avoidBlock =
+    recentTitles.length > 0
+      ? `\nAVOID repeating topics or titles similar to these recent posts:\n${recentTitles.map((t) => `- ${t}`).join("\n")}\nChoose a clearly different topic or angle.\n`
+      : "";
 
   const prompt = hasSearch
     ? `
-You are an expert AI engineer and technical writer.
-Using the following RECENT WEB SEARCH RESULTS, draft ONE blog post for practicing engineers.
-Search query used: "${searchQuery || ""}"
+You are an AI enthusiast and expert content writer. You write for engineers and practitioners—each post must feel FRESH and different from typical "AI guide" content. Avoid generic titles like "Complete Guide to X" or "Everything You Need to Know." Surprise the reader with a specific angle, a bold take, or a concrete hook.
+
+Search query for this post: "${searchQuery || ""}"
 TODAY'S DATE IS: ${todayStr}. Use this EXACT date for the "date" field.
 
-WEB SEARCH RESULTS:
+CONTENT DIRECTION FOR THIS POST:
+${contentAngle}
+${avoidBlock}
+
+WEB SEARCH RESULTS (use these for facts, news, and recent developments):
 ${searchContext}
 
 INSTRUCTIONS:
-- Base the blog on the search results above. Use facts, insights, and recent developments from these sources.
-- Cite or reference the sources where appropriate.
-- Write in an engaging, expert tone. 1200-2000 words.
-- Pick the first result's URL as "sourceUrl" for image scraping (if it has a valid URL).
-- The "date" field MUST be exactly: "${todayStr}".
-- IMPORTANT: In the "content" field, escape all quotes with \\" and avoid special characters that break JSON.
+- Base the blog on the search results where relevant. Use facts and recent developments from these sources.
+- Follow the CONTENT DIRECTION above so this post has a distinct format and hook.
+- Write in an engaging, enthusiast tone—like a skilled content writer who loves AI. Vary sentence length and use concrete examples.
+- 1200-2000 words. The "date" field MUST be exactly: "${todayStr}".
+- In the "content" field, escape all quotes with \\" and avoid special characters that break JSON.
+- Choose a unique, memorable title and a url-friendly slug that reflects it.
 
 Return STRICTLY valid JSON with this shape:
 {
   "slug": "url-friendly-slug",
-  "title": "Readable title",
+  "title": "Specific, engaging title (not generic)",
   "excerpt": "1-2 sentence summary.",
   "date": "${todayStr}",
   "readTime": "NN min read",
-  "tags": ["Tag1", "Tag2"],
+  "tags": ["Tag1", "Tag2", "Tag3"],
   "sourceUrl": "https://first-source-url-from-results-above",
   "content": "# Markdown title... (full article)"
 }
 Do NOT add any explanation outside the JSON.
 `
     : `
-You are an expert AI engineer and technical writer.
-Generate ONE blog post about AI/LLMs/RAG/agents for practicing engineers.
+You are an AI enthusiast and expert content writer. You write for engineers and practitioners—each post must feel FRESH and different. Avoid generic titles like "Complete Guide to X." Use a specific angle, a bold take, or a concrete hook.
+
 TODAY'S DATE IS: ${todayStr}. Use this EXACT date for the "date" field.
 
-IMPORTANT: In the "content" field, escape all quotes with \\" and avoid special characters that break JSON.
+CONTENT DIRECTION FOR THIS POST:
+${contentAngle}
+${avoidBlock}
+
+Topic focus: ${searchQuery || "AI/LLMs/RAG/agents"}
+
+INSTRUCTIONS:
+- Follow the CONTENT DIRECTION above so this post has a distinct format and hook.
+- Write in an engaging, enthusiast tone. 1200-2000 words.
+- The "date" field MUST be exactly: "${todayStr}".
+- In the "content" field, escape all quotes with \\" and avoid special characters that break JSON.
+- Choose a unique title and url-friendly slug.
 
 Return STRICTLY valid JSON with this shape:
 {
   "slug": "url-friendly-slug",
-  "title": "Readable title",
+  "title": "Specific, engaging title",
   "excerpt": "1-2 sentence summary.",
   "date": "${todayStr}",
   "readTime": "NN min read",
-  "tags": ["Tag1", "Tag2"],
-  "sourceUrl": "https://example.com/authoritative-article-with-good-hero-image",
-  "content": "# Markdown title... (full article, 1200-2000 words)"
+  "tags": ["Tag1", "Tag2", "Tag3"],
+  "sourceUrl": "https://example.com",
+  "content": "# Markdown title... (full article)"
 }
-Do NOT add any explanation outside the JSON.
-The "date" field MUST be exactly: "${todayStr}".
-CRITICAL: Ensure the JSON is valid - escape all quotes in content with \\" and use proper JSON formatting.`;
+Do NOT add any explanation outside the JSON. Ensure valid JSON—escape all quotes in content with \\".
+`;
 
   let response;
   let attempts = 0;
@@ -143,7 +202,7 @@ CRITICAL: Ensure the JSON is valid - escape all quotes in content with \\" and u
               content: prompt,
             },
           ],
-          temperature: 0.7, // Slightly lower for more consistent JSON
+          temperature: 0.85,
           max_tokens: 4000,  // Ensure enough tokens for full response
         }),
       });
@@ -245,12 +304,21 @@ async function runGeneration() {
     return { done: true, message: "Already generated 2 posts for today" };
   }
 
+  // Fetch recent auto_ai titles so we can ask the model to avoid repeating the same topic
+  let recentTitles = [];
+  try {
+    const { rows: recent } = await pool.query(
+      `SELECT title FROM blog_posts WHERE source = 'auto_ai' ORDER BY published_at DESC LIMIT 10`
+    );
+    recentTitles = recent.map((r) => r.title).filter(Boolean);
+  } catch (_) {}
+
   const created = [];
   for (let i = 0; i < remaining; i++) {
-    const query = SEARCH_QUERIES[i % SEARCH_QUERIES.length];
-    const searchResults = await fetchWebSearchResults(query, i);
+    const { searchQuery, contentAngle } = pickTopicAndAngle(i);
+    const searchResults = await fetchWebSearchResults(searchQuery, i);
     const searchContext = formatSearchContext(searchResults);
-    const draft = await generateBlogTopicAndContent(searchContext, query, i);
+    const draft = await generateBlogTopicAndContent(searchContext, searchQuery, contentAngle, i, recentTitles);
     const dateStr = getTodayDateString();
 
     // Ensure unique slug by adding timestamp if needed
