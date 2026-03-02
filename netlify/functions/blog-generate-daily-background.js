@@ -240,7 +240,7 @@ async function runGeneration() {
      WHERE source = 'auto_ai' AND published_at::date = CURRENT_DATE`
   );
 
-  const remaining = Math.max(0, 2 - (existingRows[0]?.count || 0));
+  const remaining = Math.min(1, Math.max(0, 2 - (existingRows[0]?.count || 0)));
   if (remaining === 0) {
     return { done: true, message: "Already generated 2 posts for today" };
   }

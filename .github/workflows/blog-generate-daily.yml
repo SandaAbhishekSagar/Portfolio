@@ -2,8 +2,9 @@ name: Generate Daily Blog Posts
 
 on:
   schedule:
-    # Run every day at 00:00 UTC
-    - cron: "0 0 * * *"
+    # 9:00 AM EST = 14:00 UTC, 6:00 PM EST = 23:00 UTC
+    - cron: "0 14 * * *"
+    - cron: "0 23 * * *"
   workflow_dispatch:
     # Allow manual trigger from GitHub Actions UI
 
@@ -13,7 +14,7 @@ jobs:
     steps:
       - name: Call blog-generate-daily function
         run: |
-          response=$(curl -s -w "\n%{http_code}" -X POST "https://abhisheksagarsanda.com/.netlify/functions/blog-generate-daily-background")
+          response=$(curl -L -s -w "\n%{http_code}" -X POST "https://www.abhisheksagarsanda.com/.netlify/functions/blog-generate-daily-background")
           http_code=$(echo "$response" | tail -n1)
           body=$(echo "$response" | sed '$d')
           echo "Response: $body"
