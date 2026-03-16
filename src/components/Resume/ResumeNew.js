@@ -134,7 +134,6 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import Particle from "../Particle";
 import AnimationWrapper from "../AnimationWrapper";
-import pdf1 from "../../Assets/Abhishek_Sagar_Sanda_FullStack_Resume.pdf";
 import pdf2 from "../../Assets/Abhishek_Sagar_Sanda_AI_ML_Resume.pdf";
 import { AiOutlineDownload } from "react-icons/ai";
 import { Document, Page, pdfjs } from "react-pdf";
