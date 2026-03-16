@@ -144,16 +144,11 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 function ResumeNew() {
   const [width, setWidth] = useState(1200);
-  const [selectedResume, setSelectedResume] = useState(1);
   const [numPages, setNumPages] = useState(null);
 
   useEffect(() => {
     setWidth(window.innerWidth);
   }, []);
-
-  const handleResumeSelect = (resumeNumber) => {
-    setSelectedResume(resumeNumber);
-  };
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -171,8 +166,7 @@ function ResumeNew() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  variant={selectedResume === 2 ? "primary" : "outline-primary"}
-                  onClick={() => handleResumeSelect(2)}
+                  variant="primary"
                   style={{ maxWidth: "250px" }}
                 >
                   AI/ML Resume
@@ -185,7 +179,7 @@ function ResumeNew() {
         <AnimationWrapper direction="up" delay={0.2}>
           <Row className="resume" style={{ maxHeight: "170vh", overflowY: "auto" }}>
             <Document
-              file={selectedResume === 2 ? pdf1 : pdf2}
+              file={pdf2}
               onLoadSuccess={onDocumentLoadSuccess}
               className="d-flex justify-content-center flex-column align-items-center"
             >
@@ -208,7 +202,7 @@ function ResumeNew() {
             >
               <Button
                 variant="primary"
-                href={selectedResume === 2 ? pdf1 : pdf2}
+                href={pdf2}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ maxWidth: "250px" }}
