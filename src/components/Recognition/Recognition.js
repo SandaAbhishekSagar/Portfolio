@@ -2,8 +2,10 @@ import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
 import { FaAward, FaBitcoin } from "react-icons/fa";
+import { BsGithub } from "react-icons/bs";
 import Particle from "../Particle";
 import AnimationWrapper from "../AnimationWrapper";
+import academicHonorsImg from "../../Assets/academic-honors-convocation.png";
 
 const cardHover = {
   hover: {
@@ -112,6 +114,66 @@ function Recognition() {
             </AnimationWrapper>
           </Col>
         </Row>
+
+        <AnimationWrapper direction="up" delay={0.15}>
+          <Row className="justify-content-center" style={{ paddingTop: "20px" }}>
+            <Col xs={12} md={10} lg={8}>
+              <motion.div
+                whileHover={{ scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <img
+                  src={academicHonorsImg}
+                  alt="Abhishek Sagar Sanda at the Northeastern Academic Honors Convocation, 2026"
+                  className="img-fluid w-100"
+                  style={{
+                    borderRadius: "15px",
+                    border: "1px solid rgba(200, 137, 230, 0.35)",
+                    boxShadow: "0 4px 5px 3px rgba(119, 53, 136, 0.35)",
+                  }}
+                />
+              </motion.div>
+            </Col>
+          </Row>
+        </AnimationWrapper>
+
+        <AnimationWrapper direction="up" delay={0.2}>
+          <Row className="justify-content-center" style={{ paddingTop: "40px", paddingBottom: "10px" }}>
+            <Col md={10} lg={8}>
+              <motion.div variants={cardHover} whileHover="hover">
+                <Card className="project-card-view glassmorphism-card">
+                  <Card.Body>
+                    <Card.Title as="h2" style={{ color: "white" }}>
+                      BitVoice Pay
+                    </Card.Title>
+                    <Card.Subtitle
+                      className="mb-3 mt-2"
+                      style={{ color: "rgb(200 180 215)", fontSize: "0.95rem" }}
+                    >
+                      MIT Bitcoin Expo Hackathon · Voice-first Lightning wallet
+                    </Card.Subtitle>
+                    <Card.Text style={{ textAlign: "justify", color: "white" }}>
+                      Open-source repo for the voice-first Lightning Network wallet
+                      (Twilio, voice AI, Bitcoin Lightning).
+                    </Card.Text>
+                    <Button
+                      variant="primary"
+                      href="https://github.com/SandaAbhishekSagar/BitVoice_Pay"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1"
+                      as={motion.a}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <BsGithub /> &nbsp; GitHub — BitVoice_Pay
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </motion.div>
+            </Col>
+          </Row>
+        </AnimationWrapper>
       </Container>
     </Container>
   );
