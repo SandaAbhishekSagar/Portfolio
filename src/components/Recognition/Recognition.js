@@ -124,7 +124,7 @@ function Recognition() {
               >
                 <img
                   src={academicHonorsImg}
-                  alt="Abhishek Sagar Sanda at the Northeastern Academic Honors Convocation, 2026"
+                  alt="Abhishek Sagar Sanda with the president of Northeastern University at the Academic Honors Convocation, 2026"
                   className="img-fluid w-100"
                   style={{
                     borderRadius: "15px",
@@ -132,6 +132,13 @@ function Recognition() {
                     boxShadow: "0 4px 5px 3px rgba(119, 53, 136, 0.35)",
                   }}
                 />
+                <p
+                  className="text-center mt-3 mb-0"
+                  style={{ color: "rgb(200 180 215)", fontSize: "0.95rem" }}
+                >
+                  With the president of Northeastern University · Academic Honors
+                  Convocation, 2026
+                </p>
               </motion.div>
             </Col>
           </Row>
