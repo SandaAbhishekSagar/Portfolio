@@ -1,4 +1,7 @@
 node_modules
+# Microsoft Office lock files
+~$*
+
 .env
 .env.local
 .env.development.local
