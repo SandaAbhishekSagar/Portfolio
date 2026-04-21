@@ -12,6 +12,7 @@ import {
   AiOutlineFundProjectionScreen,
   AiOutlineUser,
   AiOutlineRead,
+  AiOutlineTrophy,
 } from "react-icons/ai";
 import { CgFileDocument } from "react-icons/cg";
 
@@ -32,7 +33,7 @@ function NavBar() {
 
       // Update active section based on scroll position (only on home page)
       if (location.pathname === "/") {
-        const sections = ["home", "about", "projects", "resume"];
+        const sections = ["home", "about", "recognition", "projects", "resume"];
         const scrollPosition = window.scrollY + 100;
 
         for (let i = sections.length - 1; i >= 0; i--) {
@@ -148,6 +149,16 @@ function NavBar() {
                 className={activeSection === "about" ? "active-nav" : ""}
               >
                 <AiOutlineUser style={{ marginBottom: "2px" }} /> About
+              </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Nav.Link
+                href="#recognition"
+                onClick={(e) => handleNavClick("recognition", e)}
+                className={activeSection === "recognition" ? "active-nav" : ""}
+              >
+                <AiOutlineTrophy style={{ marginBottom: "2px" }} /> Recognition
               </Nav.Link>
             </Nav.Item>
 

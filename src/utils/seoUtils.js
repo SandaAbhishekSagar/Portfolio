@@ -69,7 +69,9 @@ export const generatePersonSchema = () => {
     ],
     "award": [
       "Top-10 Finalist Murf.AI Hackathon",
-      "Winner Roli.AI Hackathon"
+      "Winner Roli.AI Hackathon",
+      "2026 Outstanding Master's Student Award in Community Impact, Northeastern University",
+      "2nd Place, MIT Bitcoin Expo Hackathon 2026"
     ]
   };
 };

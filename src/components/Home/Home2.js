@@ -12,7 +12,9 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 function Home2() {
   return (
-    <Container fluid className="home-about-section" id="about">
+    <>
+      {/* TODO: Resolve duplicate id="about" — PortfolioHome also wraps About in section#about. */}
+      <Container fluid className="home-about-section" id="about">
       <Container>
         <Row>
           <Col md={8} className="home-about-description">
@@ -123,6 +125,7 @@ function Home2() {
         </Row>
       </Container>
     </Container>
+    </>
   );
 }
 export default Home2;

@@ -178,6 +178,20 @@ function Home() {
                   variants={itemVariants}
                 >
                   <Type />
+                  <p
+                    style={{
+                      color: "rgb(155 126 172)",
+                      fontSize: "1.05em",
+                      marginTop: "14px",
+                      marginBottom: 0,
+                      maxWidth: "100%",
+                      lineHeight: 1.45,
+                    }}
+                  >
+                    {
+                      "2nd Place · MIT Bitcoin Hackathon 2026   ·   Outstanding Master's Student Award · Northeastern 2026"
+                    }
+                  </p>
                 </motion.div>
               </Col>
 
