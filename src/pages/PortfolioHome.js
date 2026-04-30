@@ -13,15 +13,15 @@ function PortfolioHome() {
   return (
     <>
       <Helmet>
-        <title>Abhishek Sagar Sanda — AI Engineer | 2nd Place MIT Bitcoin Hackathon</title>
-        <meta name="description" content="AI Engineer & Full-Stack Developer. 2nd Place, MIT Bitcoin Hackathon 2026. Northeastern Outstanding Master's Student Award 2026. Building voice AI, RAG systems, and Lightning apps." />
-        <meta property="og:title" content="Abhishek Sagar Sanda — AI Engineer | 2nd Place MIT Bitcoin Hackathon" />
-        <meta property="og:description" content="AI Engineer & Full-Stack Developer. 2nd Place, MIT Bitcoin Hackathon 2026. Northeastern Outstanding Master's Student Award 2026. Building voice AI, RAG systems, and Lightning apps." />
+        <title>{"Abhishek Sagar Sanda | AI Engineer & Full-Stack Developer"}</title>
+        <meta name="description" content="AI Engineer & Full-Stack Developer. Northeastern Outstanding Master's Student Award 2026 (Community Impact). Building voice AI, RAG systems, and full-stack AI systems." />
+        <meta property="og:title" content="Abhishek Sagar Sanda | AI Engineer & Full-Stack Developer" />
+        <meta property="og:description" content="AI Engineer & Full-Stack Developer. Northeastern Outstanding Master's Student Award 2026 (Community Impact). Building voice AI, RAG systems, and full-stack AI systems." />
         <meta property="og:url" content="https://abhishek-sagar-sanda.netlify.app" />
         <meta property="og:type" content="website" />
         {/* TODO: Refresh og:image when you update portfolio visuals (LinkedIn/Twitter share preview). */}
-        <meta name="twitter:title" content="Abhishek Sagar Sanda — AI Engineer | 2nd Place MIT Bitcoin Hackathon" />
-        <meta name="twitter:description" content="AI Engineer & Full-Stack Developer. 2nd Place, MIT Bitcoin Hackathon 2026. Northeastern Outstanding Master's Student Award 2026. Building voice AI, RAG systems, and Lightning apps." />
+        <meta name="twitter:title" content="Abhishek Sagar Sanda | AI Engineer & Full-Stack Developer" />
+        <meta name="twitter:description" content="AI Engineer & Full-Stack Developer. Northeastern Outstanding Master's Student Award 2026 (Community Impact). Building voice AI, RAG systems, and full-stack AI systems." />
         <link rel="canonical" href="https://abhishek-sagar-sanda.netlify.app" />
         <script type="application/ld+json">{personSchemaJson}</script>
       </Helmet>

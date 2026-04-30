@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { motion } from "framer-motion";
-import { FaAward, FaBitcoin } from "react-icons/fa";
+import { FaAward } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import Particle from "../Particle";
 import AnimationWrapper from "../AnimationWrapper";
@@ -29,7 +29,7 @@ function Recognition() {
           </h1>
         </AnimationWrapper>
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          <Col md={6} className="project-card">
+          <Col md={10} lg={8} className="project-card">
             <AnimationWrapper direction="up" delay={0.1}>
               <motion.div variants={cardHover} whileHover="hover">
                 <Card className="project-card-view glassmorphism-card h-100">
@@ -83,36 +83,6 @@ function Recognition() {
               </motion.div>
             </AnimationWrapper>
           </Col>
-          <Col md={6} className="project-card">
-            <AnimationWrapper direction="up" delay={0.2}>
-              <motion.div variants={cardHover} whileHover="hover">
-                <Card className="project-card-view glassmorphism-card h-100">
-                  <Card.Body>
-                    <div className="mb-3">
-                      <FaBitcoin
-                        aria-hidden
-                        style={{ fontSize: "2rem", color: "#c770f0" }}
-                      />
-                    </div>
-                    <Card.Title as="h2" style={{ color: "white" }}>
-                      2nd Place — MIT Bitcoin Expo Hackathon
-                    </Card.Title>
-                    <Card.Subtitle
-                      className="mb-3 mt-2"
-                      style={{ color: "rgb(200 180 215)", fontSize: "0.95rem" }}
-                    >
-                      MIT · April 2026 · 36-hour in-person build
-                    </Card.Subtitle>
-                    <Card.Text style={{ textAlign: "justify", color: "white" }}>
-                      Built a voice-first Lightning Network wallet combining Twilio,
-                      voice AI, and Bitcoin&apos;s Lightning protocol to make crypto
-                      payments as simple as a phone call.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </motion.div>
-            </AnimationWrapper>
-          </Col>
         </Row>
 
         <AnimationWrapper direction="up" delay={0.15}>
@@ -157,7 +127,7 @@ function Recognition() {
                       className="mb-3 mt-2"
                       style={{ color: "rgb(200 180 215)", fontSize: "0.95rem" }}
                     >
-                      MIT Bitcoin Expo Hackathon · Voice-first Lightning wallet
+                      Voice-first Lightning wallet · Open source
                     </Card.Subtitle>
                     <Card.Text style={{ textAlign: "justify", color: "white" }}>
                       Open-source repo for the voice-first Lightning Network wallet

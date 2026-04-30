@@ -189,7 +189,7 @@ function Home() {
                     }}
                   >
                     {
-                      "2nd Place · MIT Bitcoin Hackathon 2026   ·   Outstanding Master's Student Award · Northeastern 2026"
+                      "Outstanding Master's Student Award (Community Impact) · Northeastern 2026"
                     }
                   </p>
                 </motion.div>
