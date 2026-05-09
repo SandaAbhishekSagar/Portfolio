@@ -54,14 +54,18 @@ function BlogList() {
         <title>AI & LLM Blog | Abhishek Sagar Sanda - Expert Insights & Tutorials</title>
         <meta name="description" content="Latest insights on AI, LLMs, RAG systems, computer vision, and machine learning. Expert tutorials, case studies, and industry trends from an AI Engineer at Northeastern University." />
         <meta name="keywords" content="AI blog, LLM tutorials, RAG systems, machine learning, computer vision, AI engineering, artificial intelligence, tech insights, Abhishek Sagar Sanda" />
+        <meta name="robots" content="index, follow" />
         <meta property="og:title" content="AI & LLM Blog | Expert Insights & Tutorials" />
         <meta property="og:description" content="Expert insights on AI, machine learning, and LLM applications. Join 1,000+ engineers learning about cutting-edge AI technology." />
         <meta property="og:url" content="https://abhishek-sagar-sanda.netlify.app/blog" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://abhishek-sagar-sanda.netlify.app/images/blog-hero.png" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/SandaAbhishekSagar/Portfolio/main/Images/readme-img.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="AI & LLM Blog | Expert Insights & Tutorials" />
         <meta name="twitter:description" content="Latest insights on AI, LLMs, and machine learning from an AI Engineer at Northeastern University." />
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/SandaAbhishekSagar/Portfolio/main/Images/readme-img.png" />
         <link rel="canonical" href="https://abhishek-sagar-sanda.netlify.app/blog" />
         <link rel="alternate" type="application/rss+xml" title="AI Engineering Blog RSS Feed" href="https://abhishek-sagar-sanda.netlify.app/rss.xml" />
         <script type="application/ld+json">

@@ -132,13 +132,21 @@ function BlogPost() {
       <Helmet>
         <title>{post.title} | Abhishek Sagar Sanda</title>
         <meta name="description" content={post.excerpt} />
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={post.tags.join(", ")} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:url" content={`https://abhishek-sagar-sanda.netlify.app/blog/${post.slug}`} />
         <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary" />
+        <meta property="og:image" content={post.featuredImage ? `https://abhishek-sagar-sanda.netlify.app${post.featuredImage}` : "https://raw.githubusercontent.com/SandaAbhishekSagar/Portfolio/main/Images/readme-img.png"} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />
         <meta name="twitter:description" content={post.excerpt} />
+        <meta name="twitter:image" content={post.featuredImage ? `https://abhishek-sagar-sanda.netlify.app${post.featuredImage}` : "https://raw.githubusercontent.com/SandaAbhishekSagar/Portfolio/main/Images/readme-img.png"} />
+        <meta name="article:published_time" content={post.date} />
+        <meta name="article:author" content="Abhishek Sagar Sanda" />
         <link rel="canonical" href={`https://abhishek-sagar-sanda.netlify.app/blog/${post.slug}`} />
         <script type="application/ld+json">
           {JSON.stringify(schema)}

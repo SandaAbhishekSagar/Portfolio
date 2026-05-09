@@ -8,17 +8,9 @@ Sitemap: https://abhishek-sagar-sanda.netlify.app/sitemap.xml
 User-agent: *
 Allow: /rss.xml
 
-# Optimize crawl budget - block unnecessary files
-Disallow: *.css$
-Disallow: *.js$
-Disallow: *.json$
-Disallow: /static/
-Disallow: /_next/
-Disallow: /node_modules/
+# Block sensitive files only
 Disallow: /.env
-
-# SEO improvements
-Crawl-delay: 1
+Disallow: /node_modules/
 
 # Social media bots
 User-agent: facebookexternalhit/*
