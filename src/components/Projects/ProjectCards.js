@@ -39,7 +39,7 @@ function ProjectCards(props) {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
         >
-          <Card.Img variant="top" src={props.imgPath} alt="card-img" />
+          <Card.Img variant="top" src={props.imgPath} alt={props.title} />
         </motion.div>
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>

@@ -15,13 +15,19 @@ function PortfolioHome() {
       <Helmet>
         <title>{"Abhishek Sagar Sanda | AI Engineer & Full-Stack Developer"}</title>
         <meta name="description" content="AI Engineer & Full-Stack Developer. Northeastern Outstanding Master's Student Award 2026 (Community Impact). Building voice AI, RAG systems, and full-stack AI systems." />
+        <meta name="keywords" content="Abhishek Sagar Sanda, AI Engineer, Full-Stack Developer, RAG systems, LLM, voice AI, machine learning, Northeastern University, computer vision, Python, React" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
         <meta property="og:title" content="Abhishek Sagar Sanda | AI Engineer & Full-Stack Developer" />
         <meta property="og:description" content="AI Engineer & Full-Stack Developer. Northeastern Outstanding Master's Student Award 2026 (Community Impact). Building voice AI, RAG systems, and full-stack AI systems." />
         <meta property="og:url" content="https://abhishek-sagar-sanda.netlify.app" />
         <meta property="og:type" content="website" />
-        {/* TODO: Refresh og:image when you update portfolio visuals (LinkedIn/Twitter share preview). */}
+        <meta property="og:image" content="https://raw.githubusercontent.com/SandaAbhishekSagar/Portfolio/main/Images/readme-img.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Abhishek Sagar Sanda | AI Engineer & Full-Stack Developer" />
         <meta name="twitter:description" content="AI Engineer & Full-Stack Developer. Northeastern Outstanding Master's Student Award 2026 (Community Impact). Building voice AI, RAG systems, and full-stack AI systems." />
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/SandaAbhishekSagar/Portfolio/main/Images/readme-img.png" />
         <link rel="canonical" href="https://abhishek-sagar-sanda.netlify.app" />
         <script type="application/ld+json">{personSchemaJson}</script>
       </Helmet>

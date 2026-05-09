@@ -40,7 +40,7 @@ function About() {
             <AnimationWrapper direction="left" delay={0.3}>
               <motion.img
                 src={laptopImg}
-                alt="about"
+                alt="Abhishek Sagar Sanda - Skills and Tools"
                 className="img-fluid"
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 transition={{ type: "spring", stiffness: 300 }}

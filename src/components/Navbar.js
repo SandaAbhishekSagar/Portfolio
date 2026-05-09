@@ -118,7 +118,7 @@ function NavBar() {
           className="d-flex"
           style={{ cursor: "pointer" }}
         >
-          <img src={logo} className="img-fluid logo" alt="brand" />
+          <img src={logo} className="img-fluid logo" alt="Abhishek Sagar Sanda" />
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
