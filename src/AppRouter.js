@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, Link } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 import Preloader from "./components/Pre";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -8,7 +8,6 @@ import SupportCopilotWidget from "./components/Widget/SupportCopilotWidget";
 import PortfolioHome from "./pages/PortfolioHome";
 import BlogList from "./pages/BlogList";
 import BlogPost from "./pages/BlogPost";
-import { Helmet } from "react-helmet-async";
 import { 
   initGA, 
   trackPageView, 
@@ -16,6 +15,9 @@ import {
   setupErrorTracking,
   trackPerformance 
 } from "./utils/analytics";
+import "./style.css";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function NotFound() {
   return (
@@ -33,9 +35,6 @@ function NotFound() {
     </>
   );
 }
-import "./style.css";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 // Analytics wrapper component
 function AnalyticsWrapper({ children }) {
